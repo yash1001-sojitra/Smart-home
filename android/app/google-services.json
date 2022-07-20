@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "999884465954",
+    "project_id": "smart-home-c33dc",
+    "storage_bucket": "smart-home-c33dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999884465954:android:a7f0773b98839b2a5ca77b",
+        "android_client_info": {
+          "package_name": "com.smarthome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999884465954-opqvmbs694cl1eaadru0o97spkgmm0fu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smarthome",
+            "certificate_hash": "41434313e07064906c098989e4337bfa1932e76f"
+          }
+        },
+        {
+          "client_id": "999884465954-qssfikh643gas6strs2iogughj7p8hcs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQYvsJ8sp-vz5UhMdMkcHbdoViuCkj3kY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999884465954-qssfikh643gas6strs2iogughj7p8hcs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
