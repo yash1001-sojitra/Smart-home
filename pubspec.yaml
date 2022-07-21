@@ -48,6 +48,9 @@ dev_dependencies:
   uuid: ^3.0.6
   shared_preferences: ^2.0.15
 
+  #phonenumber list  
+  intl_phone_field: ^3.1.0
+
   #search bar
   flutter_search_bar: ^2.1.0
 

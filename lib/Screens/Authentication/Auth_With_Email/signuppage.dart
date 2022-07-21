@@ -7,10 +7,10 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Core/Constant/textcontroller.dart';
 
-import '../../Logic/Providers/userData_provider.dart';
-import '../../Logic/Services/auth_services/auth_service.dart';
-import '../../Logic/modules/user_model.dart';
-import '../Splash/splashscreen.dart';
+import '../../../Logic/Providers/userData_provider.dart';
+import '../../../Logic/Services/auth_services/auth_service.dart';
+import '../../../Logic/modules/user_model.dart';
+import '../../Splash/splashscreen.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -43,6 +43,10 @@ class _SignupPageState extends State<SignupPage> {
       children: [
         const BackgroundImage(),
         Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
           backgroundColor: Colors.transparent,
           body: SafeArea(
             child: Form(
@@ -52,7 +56,7 @@ class _SignupPageState extends State<SignupPage> {
                   children: [
                     Container(
                       alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(left: 30, top: 50),
+                      padding: const EdgeInsets.only(left: 30),
                       child: Text(
                         "Sign up",
                         style: GoogleFonts.cormorantGaramond(
@@ -197,7 +201,7 @@ class _SignupPageState extends State<SignupPage> {
                       width: 325,
                       height: 55,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.white),
                         color: Colors.black45,
                       ),

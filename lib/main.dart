@@ -10,8 +10,6 @@ import 'Logic/Providers/userData_provider.dart';
 import 'Logic/Services/auth_services/auth_service.dart';
 import 'Routes/routes.dart';
 
-
-
 Future<void> main() async {
   int? initScreen;
   WidgetsFlutterBinding.ensureInitialized();

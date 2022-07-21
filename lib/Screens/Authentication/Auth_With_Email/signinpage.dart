@@ -7,8 +7,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Core/Constant/textcontroller.dart';
 
-import '../../Logic/Services/auth_services/auth_service.dart';
-import '../Splash/splashscreen.dart';
+import '../../../Logic/Services/auth_services/auth_service.dart';
+import '../../Splash/splashscreen.dart';
 
 class SignInpage extends StatefulWidget {
   const SignInpage({Key? key}) : super(key: key);
@@ -35,28 +35,19 @@ class _SignInpageState extends State<SignInpage> {
           const BackgroundImage(),
           Scaffold(
             backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     Container(
                       alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(left: 30, top: 50),
-                      child: Text(
-                        "Welcome",
-                        style: GoogleFonts.cormorantGaramond(
-                          textStyle: const TextStyle(
-                              fontSize: 50,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(left: 30),
                       child: Text(
-                        "Back!",
+                        "Sign In",
                         style: GoogleFonts.cormorantGaramond(
                           textStyle: const TextStyle(
                               fontSize: 50,
@@ -78,6 +69,12 @@ class _SignInpageState extends State<SignInpage> {
                           style: const TextStyle(
                               color: Colors.white, fontSize: 20),
                           decoration: const InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
                             prefixIcon: Icon(
                               Icons.email,
                               color: Colors.white54,
@@ -110,6 +107,12 @@ class _SignInpageState extends State<SignInpage> {
                             return null;
                           },
                           decoration: InputDecoration(
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
                             prefixIcon: const Icon(
                               Icons.lock,
                               color: Colors.white54,
@@ -136,12 +139,29 @@ class _SignInpageState extends State<SignInpage> {
                             ),
                           ),
                         )),
-                    const SizedBox(height: 60),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                "Forgot your password?",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            )
+                          ]),
+                    ),
                     Container(
                       width: 325,
                       height: 55,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: Colors.white),
                           color: Colors.black45),
                       child: TextButton(
@@ -166,40 +186,72 @@ class _SignInpageState extends State<SignInpage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 25),
-                    Container(
-                      width: 325,
-                      height: 55,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(50),
-                          color: Colors.white54),
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, signUpScreenRoute);
-                        },
-                        child: const Text(
-                          "Sign Up",
+                    const SizedBox(height: 30),
+                    Row(
+                      children: const [
+                        Expanded(
+                          child: Divider(
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          " Or Connect Using ",
                           style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.grey,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Forgot your password?",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                        Expanded(
+                          child: Divider(
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
+                      ],
                     ),
+                    const SizedBox(height: 30),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Image.asset(
+                            "assets/images/google.png",
+                            height: 35,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 25,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Image.asset(
+                            "assets/images/facebook.png",
+                            height: 35,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 25,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Image.asset(
+                            "assets/images/iphone.png",
+                            height: 35,
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

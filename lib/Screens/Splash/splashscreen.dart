@@ -5,9 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:smarthome/Screens/Authentication/Auth_Main/authmain.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 
-import '../Authentication/signinpage.dart';
+import '../Authentication/Auth_With_Email/signinpage.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -32,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      loginNum == 1 ? const Homepage() : const SignInpage(),
+                      loginNum == 1 ? const Homepage() : const AuthMain(),
                 ),
               )
             });
