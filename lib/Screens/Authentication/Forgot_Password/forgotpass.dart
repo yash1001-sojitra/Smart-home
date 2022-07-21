@@ -1,35 +1,27 @@
-// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
-
+// ignore_for_file: use_build_context_synchronously
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Core/Constant/textcontroller.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
-
-import '../../../Logic/Services/auth_services/auth_service.dart';
 import '../../Splash/splashscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class SignInpage extends StatefulWidget {
-  const SignInpage({Key? key}) : super(key: key);
+class ForgotPass extends StatefulWidget {
+  const ForgotPass({Key? key}) : super(key: key);
 
   @override
-  State<SignInpage> createState() => _SignInpageState();
+  State<ForgotPass> createState() => _ForgotPassState();
 }
 
-class _SignInpageState extends State<SignInpage> {
-  late AuthService authService;
-  bool showLoading = false;
-  bool showAlert = false;
-  bool ispasswordvisible = true;
+class _ForgotPassState extends State<ForgotPass> {
   final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    authService = Provider.of<AuthService>(context);
-
+    late String forgotemail;
     return Form(
       key: _formkey,
       child: Stack(
@@ -49,7 +41,20 @@ class _SignInpageState extends State<SignInpage> {
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(left: 30),
                       child: Text(
-                        "Sign In",
+                        "Forgot",
+                        style: GoogleFonts.cormorantGaramond(
+                          textStyle: const TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(left: 30),
+                      child: Text(
+                        "Password?",
                         style: GoogleFonts.cormorantGaramond(
                           textStyle: const TextStyle(
                               fontSize: 50,
@@ -63,7 +68,10 @@ class _SignInpageState extends State<SignInpage> {
                         height: 70,
                         width: 325,
                         child: TextFormField(
-                          controller: emailController,
+                          onChanged: ((value) {
+                            forgotemail = value;
+                          }),
+                          
                           obscureText: false,
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.emailAddress,
@@ -89,78 +97,8 @@ class _SignInpageState extends State<SignInpage> {
                             ),
                           ),
                         )),
-                    const SizedBox(height: 30),
-                    SizedBox(
-                        height: 70,
-                        width: 325,
-                        child: TextFormField(
-                          controller: passwordController,
-                          cursorColor: Colors.white,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 20),
-                          obscureText: ispasswordvisible,
-                          textInputAction: TextInputAction.done,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please Enter Password";
-                            } else if (value.length < 6) {
-                              return "Password length must be 6";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            prefixIcon: const Icon(
-                              Icons.lock,
-                              color: Colors.white54,
-                            ),
-                            suffixIcon: IconButton(
-                              icon: ispasswordvisible
-                                  ? const Icon(
-                                      Icons.visibility_off,
-                                      size: 20,
-                                      color: Colors.white54,
-                                    )
-                                  : const Icon(
-                                      Icons.visibility,
-                                      size: 20,
-                                      color: Colors.white54,
-                                    ),
-                              onPressed: () => setState(
-                                  () => ispasswordvisible = !ispasswordvisible),
-                            ),
-                            labelText: 'Password',
-                            labelStyle: const TextStyle(
-                              color: Colors.white60,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, ForgotpassScreenRoute);
-                              },
-                              child: const Text(
-                                "Forgot your password?",
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            )
-                          ]),
+                    const SizedBox(
+                      height: 40,
                     ),
                     Container(
                       width: 325,
@@ -171,20 +109,13 @@ class _SignInpageState extends State<SignInpage> {
                           color: Colors.black45),
                       child: TextButton(
                         onPressed: () async {
-                          setState(() {
-                            showLoading = true;
-                          });
-                          progressIndicater(context, showLoading = true);
-                          await login();
-                          showAlert == true
-                              ? null
-                              : progressIndicater(context, showLoading = true);
-                          emailController.clear();
-                          passwordController.clear();
-                          Navigator.pop(context);
+                          await FirebaseAuth.instance
+                              .sendPasswordResetEmail(email: forgotemail)
+                              .then((value) => Navigator.of(context).pop());
+                          
                         },
                         child: const Text(
-                          "Sign In",
+                          "Reset Password",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -193,7 +124,7 @@ class _SignInpageState extends State<SignInpage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 40),
                     Row(
                       children: const [
                         Expanded(
@@ -279,32 +210,6 @@ class _SignInpageState extends State<SignInpage> {
     );
   }
 
-  Future<dynamic>? progressIndicater(BuildContext context, showLoading) {
-    if (showLoading == true) {
-      return showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          });
-    } else {
-      return null;
-    }
-  }
-
-  login() async {
-    try {
-      await authService.signInWithEmailAndPassword(
-          emailController.text.toString(), passwordController.text.toString());
-
-      Navigator.pushNamedAndRemoveUntil(
-          context, homepageScreenRoute, (route) => false);
-    } catch (e) {
-      return alertBox(context, e);
-    }
-  }
-
   Future<void> signupwithgoogle(BuildContext context) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =
@@ -315,17 +220,5 @@ class _SignInpageState extends State<SignInpage> {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const Homepage()));
     }
-  }
-
-  Future<void> alertBox(BuildContext context, e) {
-    setState(() {
-      showLoading = false;
-      showAlert = true;
-    });
-    return Alert(
-      context: context,
-      title: "ALERT",
-      desc: e.toString(),
-    ).show();
   }
 }

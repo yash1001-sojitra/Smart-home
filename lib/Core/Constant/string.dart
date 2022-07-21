@@ -16,6 +16,9 @@ const String signUpScreenRoute = '/signUpScreenRoute';
 // auth using Phonenumber
 const String NumberauthScreenRoute = 'numberauthScreenRoute';
 const String otpverificationScreenRoute = 'otpverificationScreenRoute';
+
+//forgot password
+const String ForgotpassScreenRoute = '/forgotpass';
 //drawer
 const String drawerScreenRoute = '/drawerScreenRoute';
 

@@ -164,6 +164,7 @@ class _SignupPageState extends State<SignupPage> {
                         height: 70,
                         width: 325,
                         child: TextField(
+                          controller: confirmpassController,
                           cursorColor: Colors.white,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 17),
