@@ -6,9 +6,13 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Core/Constant/textcontroller.dart';
+import 'package:smarthome/Logic/Modules/user_model.dart';
 import 'package:smarthome/Logic/Services/auth_services/auth_service.dart';
+import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 
 import '../../Splash/splashscreen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthMain extends StatefulWidget {
   const AuthMain({Key? key}) : super(key: key);
@@ -23,6 +27,10 @@ class _AuthMainState extends State<AuthMain> {
   bool showAlert = false;
   bool ispasswordvisible = true;
   final _formkey = GlobalKey<FormState>();
+  GlobalKey<FormState> _userLoginFormKey = GlobalKey();
+  late FireBaseUser _user;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -139,14 +147,19 @@ class _AuthMainState extends State<AuthMain> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Image.asset(
-                            "assets/images/google.png",
-                            height: 35,
+                        GestureDetector(
+                          onTap: () {
+                            signupwithgoogle(context);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Image.asset(
+                              "assets/images/google.png",
+                              height: 35,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -190,5 +203,28 @@ class _AuthMainState extends State<AuthMain> {
         ],
       ),
     );
+  }
+
+  Future<void> signupwithgoogle(BuildContext context) async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      final AuthCredential authCredential = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken);
+
+      // Getting users credential
+      UserCredential result = await _auth.signInWithCredential(authCredential);
+      User? user = result.user;
+
+      if (result != null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Homepage()));
+      } // if result not null we simply call the MaterialpageRoute,
+      // for go to the HomePage screen
+    }
   }
 }

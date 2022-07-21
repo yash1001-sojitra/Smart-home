@@ -208,18 +208,6 @@ class _NumberAuthState extends State<NumberAuth> {
     }
   }
 
-  // login() async {
-  //   try {
-  //     await authService.signInWithEmailAndPassword(
-  //         emailController.text.toString(), passwordController.text.toString());
-
-  //     Navigator.pushNamedAndRemoveUntil(
-  //         context, homepageScreenRoute, (route) => false);
-  //   } catch (e) {
-  //     return alertBox(context, e);
-  //   }
-  // }
-
   Future<void> alertBox(BuildContext context, e) {
     setState(() {
       showLoading = false;
