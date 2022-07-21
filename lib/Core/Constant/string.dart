@@ -7,7 +7,8 @@ const String splashScreenRoute = '/';
 const String onboardingScreenRoute = '/onboardingScreenRoute';
 
 //Authenication
-
+//auth main
+const String authmainScreenRoute = '/authmain';
 // auth using Email
 const String singInScreenRoute = '/singInScreenRoute';
 const String signUpScreenRoute = '/signUpScreenRoute';

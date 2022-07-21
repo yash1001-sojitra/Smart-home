@@ -1,11 +1,15 @@
+// ignore_for_file: depend_on_referenced_packages, use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smarthome/Core/Constant/textcontroller.dart';
+import 'package:smarthome/Core/Constant/string.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
+import '../../../Logic/helper/helper.dart';
 import '../../Splash/splashscreen.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import '../../User/Homepage/homepage.dart';
 
 class NumberAuth extends StatefulWidget {
   const NumberAuth({Key? key}) : super(key: key);
@@ -20,6 +24,7 @@ class _NumberAuthState extends State<NumberAuth> {
   bool showAlert = false;
   bool ispasswordvisible = true;
   final _formkey = GlobalKey<FormState>();
+  String? phoneNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +73,21 @@ class _NumberAuthState extends State<NumberAuth> {
                     ),
                     const SizedBox(height: 30),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(left: 18.0, right: 18),
                       child: IntlPhoneField(
-                        initialCountryCode: "91",
                         dropdownTextStyle: const TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         style:
                             const TextStyle(color: Colors.white, fontSize: 20),
+                        autofocus: true,
+                        invalidNumberMessage: 'Invalid Phone Number!',
+                        textAlignVertical: TextAlignVertical.center,
+                        onChanged: (phone) =>
+                            phoneNumber = phone.completeNumber,
+                        initialCountryCode: 'IN',
+                        flagsButtonPadding: const EdgeInsets.only(right: 10),
+                        showDropdownIcon: false,
+                        keyboardType: TextInputType.phone,
                         decoration: const InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
@@ -82,21 +95,7 @@ class _NumberAuthState extends State<NumberAuth> {
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                           ),
-                          labelText: 'Phone Number',
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                          labelStyle: TextStyle(
-                            color: Colors.white60,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
-                        onChanged: (phone) {
-                          print(phone.completeNumber);
-                        },
-                        onCountryChanged: (country) {
-                          print('Country changed to: ' + country.name);
-                        },
                       ),
                     ),
                     const SizedBox(
@@ -111,18 +110,19 @@ class _NumberAuthState extends State<NumberAuth> {
                           color: Colors.black45),
                       child: TextButton(
                         onPressed: () async {
-                          setState(() {
-                            showLoading = true;
-                          });
-                          progressIndicater(context, showLoading = true);
-                          // await login();
-                          showAlert == true
-                              ? null
-                              : progressIndicater(context, showLoading = true);
-                          Navigator.pop(context);
+                          if (isNullOrBlank(phoneNumber) ||
+                              !_formkey.currentState!.validate()) {
+                            showSnackBar('Please enter a valid phone number!');
+                          } else {
+                            Navigator.pushNamed(
+                              context,
+                              otpverificationScreenRoute,
+                              arguments: phoneNumber,
+                            );
+                          }
                         },
                         child: const Text(
-                          "Sign In",
+                          "Verify",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -159,14 +159,19 @@ class _NumberAuthState extends State<NumberAuth> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Image.asset(
-                            "assets/images/google.png",
-                            height: 35,
+                        GestureDetector(
+                          onTap: () {
+                            signupwithgoogle(context);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Image.asset(
+                              "assets/images/google.png",
+                              height: 35,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -205,6 +210,16 @@ class _NumberAuthState extends State<NumberAuth> {
           });
     } else {
       return null;
+    }
+  }
+
+  Future<void> signupwithgoogle(BuildContext context) async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const Homepage()));
     }
   }
 

@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../../Authentication/Auth_With_Email/signinpage.dart';
+import 'package:smarthome/Core/Constant/string.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -18,14 +17,8 @@ class Homepage extends StatelessWidget {
           child: const Text("Logout"),
           onPressed: () {
             auth.signOut();
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const SignInpage();
-                },
-              ),
-            );
+            Navigator.popUntil(context, (route) => false);
+            Navigator.pushNamed(context, authmainScreenRoute);
           },
         ),
       ),

@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smarthome/Core/Constant/string.dart';
+import 'package:smarthome/Screens/Authentication/Auth_Main/authmain.dart';
 import 'package:smarthome/Screens/Authentication/Auth_With_Number/auth_number.dart';
 import 'package:smarthome/Screens/Authentication/Auth_With_Number/otp_verification.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 
+import '../Logic/helper/helper.dart';
 import '../Screens/Authentication/Auth_With_Email/signinpage.dart';
 import '../Screens/Authentication/Auth_With_Email/signuppage.dart';
 import '../Screens/Splash/onboardingscreen.dart';
@@ -19,7 +21,10 @@ class Routes {
     initScreen = prefs.getInt("initScreen")!;
   }
 
+  static const _id = 'RouteGenerator';
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments as dynamic;
+    log(_id, msg: "Pushed ${settings.name}(${args ?? ''})");
     switch (settings.name) {
 
       //splash screens
@@ -31,6 +36,9 @@ class Routes {
             builder: (context) => const OnboardingScreen());
 
       // authentication screens
+      case authmainScreenRoute:
+        return MaterialPageRoute(builder: (context) => const AuthMain());
+
       case singInScreenRoute:
         return MaterialPageRoute(builder: (context) => const SignInpage());
 
@@ -42,7 +50,9 @@ class Routes {
 
       case otpverificationScreenRoute:
         return MaterialPageRoute(
-            builder: (context) => const OtpVerificationPage());
+            builder: (context) => VerifyPhoneNumberScreen(
+                  phoneNumber: args,
+                ));
 
       // main screens
       case homepageScreenRoute:

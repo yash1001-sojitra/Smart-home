@@ -6,12 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Core/Constant/textcontroller.dart';
-import 'package:smarthome/Logic/Modules/user_model.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 
 import '../../../Logic/Services/auth_services/auth_service.dart';
 import '../../Splash/splashscreen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInpage extends StatefulWidget {
@@ -27,9 +25,6 @@ class _SignInpageState extends State<SignInpage> {
   bool showAlert = false;
   bool ispasswordvisible = true;
   final _formkey = GlobalKey<FormState>();
-  late FireBaseUser _user;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -252,14 +247,19 @@ class _SignInpageState extends State<SignInpage> {
                         const SizedBox(
                           width: 25,
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Image.asset(
-                            "assets/images/iphone.png",
-                            height: 35,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, NumberauthScreenRoute);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Image.asset(
+                              "assets/images/iphone.png",
+                              height: 35,
+                            ),
                           ),
                         ),
                       ],
@@ -305,20 +305,12 @@ class _SignInpageState extends State<SignInpage> {
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
     if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
-      final AuthCredential authCredential = GoogleAuthProvider.credential(
-          idToken: googleSignInAuthentication.idToken,
-          accessToken: googleSignInAuthentication.accessToken);
 
       // Getting users credential
-      UserCredential result = await _auth.signInWithCredential(authCredential);
-      User? user = result.user;
 
-      if (result != null) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Homepage()));
-      } // if result not null we simply call the MaterialpageRoute,
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const Homepage()));
+// if result not null we simply call the MaterialpageRoute,
       // for go to the HomePage screen
     }
   }
