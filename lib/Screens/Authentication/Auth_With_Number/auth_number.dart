@@ -4,12 +4,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smarthome/Core/Constant/string.dart';
+import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
 import '../../../Logic/helper/helper.dart';
 import '../../Splash/splashscreen.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import '../../User/Homepage/homepage.dart';
 
 class NumberAuth extends StatefulWidget {
   const NumberAuth({Key? key}) : super(key: key);

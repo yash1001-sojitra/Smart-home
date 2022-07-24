@@ -12,6 +12,7 @@ import 'Logic/helper/globals.dart';
 import 'Routes/routes.dart';
 
 Future<void> main() async {
+  Paint.enableDithering = true;
   int? initScreen;
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -56,3 +57,10 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
+//colors
+
+// light blue  #339DFA
+// grey #978989

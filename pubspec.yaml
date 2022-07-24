@@ -65,7 +65,7 @@ dev_dependencies:
   cached_network_image: ^3.2.0
 
   #file picker
-  file_picker: null
+  file_picker: 
 
   #gridview
   flutter_staggered_grid_view: ^0.4.0
@@ -73,7 +73,7 @@ dev_dependencies:
   #googlefont, animaltion, alert, fontawsome
   google_fonts: ^2.2.0
   lottie: ^1.2.1
-  rflutter_alert: null
+  rflutter_alert: 
   font_awesome_flutter: ^10.1.0
   favorite_button: ^0.0.4
 

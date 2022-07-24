@@ -317,6 +317,8 @@ class _SignInpageState extends State<SignInpage> {
     }
   }
 
+  Future<void> signupwithfacebook(BuildContext context) async {}
+
   Future<void> alertBox(BuildContext context, e) {
     setState(() {
       showLoading = false;

@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Core/Constant/textcontroller.dart';
-
+import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../../Logic/Providers/userData_provider.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
-import '../../../Logic/modules/user_model.dart';
+import '../../../Logic/Modules/user_model.dart';
 import '../../Splash/splashscreen.dart';
 
 class SignupPage extends StatefulWidget {
@@ -24,6 +24,7 @@ class _SignupPageState extends State<SignupPage> {
   bool showLoading = false;
   bool showAlert = false;
   bool ispasswordvisible = true;
+  String? phoneNumber;
 
   final _form = GlobalKey<FormState>();
 
@@ -92,6 +93,9 @@ class _SignupPageState extends State<SignupPage> {
                               fontWeight: FontWeight.bold,
                               fontStyle: FontStyle.normal,
                             ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
                           ),
                         )),
                     const SizedBox(height: 30),
@@ -119,8 +123,42 @@ class _SignupPageState extends State<SignupPage> {
                               fontWeight: FontWeight.bold,
                               fontStyle: FontStyle.normal,
                             ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
                           ),
                         )),
+                    const SizedBox(height: 30),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 18.0, right: 18),
+                      child: IntlPhoneField(
+                        dropdownTextStyle: const TextStyle(color: Colors.white),
+                        cursorColor: Colors.white,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 17),
+                        invalidNumberMessage: 'Invalid Phone Number!',
+                        textAlignVertical: TextAlignVertical.center,
+                        onChanged: (phone) {
+                          phoneNumber = phone.completeNumber;
+                          userDataProvider
+                              .changephonenumber(phoneNumber.toString());
+                        },
+                        initialCountryCode: 'IN',
+                        flagsButtonPadding: const EdgeInsets.only(right: 10),
+                        showDropdownIcon: true,
+                        dropdownIcon: const Icon(
+                            color: Colors.white, Icons.arrow_drop_down),
+                        keyboardType: TextInputType.phone,
+                        decoration: const InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 30),
                     SizedBox(
                         height: 70,
@@ -133,6 +171,9 @@ class _SignupPageState extends State<SignupPage> {
                           obscureText: ispasswordvisible,
                           textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
                             prefixIcon: const Icon(
                               Icons.lock,
                               color: Colors.white54,
@@ -153,44 +194,6 @@ class _SignupPageState extends State<SignupPage> {
                                   () => ispasswordvisible = !ispasswordvisible),
                             ),
                             labelText: 'Password',
-                            labelStyle: const TextStyle(
-                              color: Colors.white60,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )),
-                    const SizedBox(height: 30),
-                    SizedBox(
-                        height: 70,
-                        width: 325,
-                        child: TextField(
-                          controller: confirmpassController,
-                          cursorColor: Colors.white,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 17),
-                          obscureText: ispasswordvisible,
-                          textInputAction: TextInputAction.done,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(
-                              Icons.lock,
-                              color: Colors.white54,
-                            ),
-                            suffixIcon: IconButton(
-                              icon: ispasswordvisible
-                                  ? const Icon(
-                                      Icons.visibility_off,
-                                      size: 20,
-                                      color: Colors.white54,
-                                    )
-                                  : const Icon(
-                                      Icons.visibility,
-                                      size: 20,
-                                      color: Colors.white54,
-                                    ),
-                              onPressed: () => setState(
-                                  () => ispasswordvisible = !ispasswordvisible),
-                            ),
-                            labelText: 'Confirm Password',
                             labelStyle: const TextStyle(
                               color: Colors.white60,
                               fontWeight: FontWeight.bold,

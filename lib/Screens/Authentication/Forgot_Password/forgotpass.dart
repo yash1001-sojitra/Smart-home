@@ -1,9 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smarthome/Core/Constant/string.dart';
-import 'package:smarthome/Core/Constant/textcontroller.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 import '../../Splash/splashscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -71,7 +70,6 @@ class _ForgotPassState extends State<ForgotPass> {
                           onChanged: ((value) {
                             forgotemail = value;
                           }),
-                          
                           obscureText: false,
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.emailAddress,
@@ -112,7 +110,6 @@ class _ForgotPassState extends State<ForgotPass> {
                           await FirebaseAuth.instance
                               .sendPasswordResetEmail(email: forgotemail)
                               .then((value) => Navigator.of(context).pop());
-                          
                         },
                         child: const Text(
                           "Reset Password",
@@ -221,4 +218,6 @@ class _ForgotPassState extends State<ForgotPass> {
           context, MaterialPageRoute(builder: (context) => const Homepage()));
     }
   }
+
+  Future<void> signupwithfacebook(BuildContext context) async {}
 }

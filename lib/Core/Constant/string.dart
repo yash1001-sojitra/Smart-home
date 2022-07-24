@@ -19,12 +19,14 @@ const String otpverificationScreenRoute = 'otpverificationScreenRoute';
 
 //forgot password
 const String ForgotpassScreenRoute = '/forgotpass';
+
+//myprofile
+const String MyProfilePageScreenRoute = '/myprofilepage';
 //drawer
 const String drawerScreenRoute = '/drawerScreenRoute';
 
 //homepage
 const String homepageScreenRoute = '/homepageScreenRoute';
 const String searchScreenRoute = '/searchScreenRoute';
-
 
 //****************End-Routes***********************

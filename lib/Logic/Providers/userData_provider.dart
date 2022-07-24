@@ -2,14 +2,14 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:smarthome/Logic/Services/fireStoreServices/user_firestore_services.dart';
-
-import '../modules/userData_model.dart';
+import '../Modules/userData_model.dart';
 
 class UsereDataProvider with ChangeNotifier {
   final service = UserDataFirestoreService();
   late String _id;
   late String _Name;
   late String _email;
+  late String _phonenumber;
   String _userimage =
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   final DateTime _time = DateTime.now();
@@ -18,6 +18,7 @@ class UsereDataProvider with ChangeNotifier {
   String get getId => _id;
   String get getName => _Name;
   String get getEmail => _email;
+  String get getphonenumber => _phonenumber;
   String get getUserimage => _userimage;
 
   // setter
@@ -33,18 +34,23 @@ class UsereDataProvider with ChangeNotifier {
     _email = value;
   }
 
+  void changephonenumber(String value) {
+    _phonenumber = value;
+  }
+
   void changeUserimage(String value) {
     _userimage = value;
   }
 
   void saveUserData() {
-    var newUserData = UserData(
+    var userData = UserData(
         email: getEmail,
         Name: getName,
+        phonenumber: getphonenumber,
         id: getId,
         userimage: getUserimage.isEmpty ? '' : getUserimage,
         time: _time);
-    service.saveUser(newUserData);
+    service.saveUser(userData);
   }
 
   void deleteUserData(userId) {

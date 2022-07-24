@@ -8,6 +8,7 @@ import 'package:smarthome/Screens/Authentication/Auth_With_Number/auth_number.da
 import 'package:smarthome/Screens/Authentication/Auth_With_Number/otp_verification.dart';
 import 'package:smarthome/Screens/Authentication/Forgot_Password/forgotpass.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
+import 'package:smarthome/Screens/User/MyProfile/myprofile.dart';
 
 import '../Logic/helper/helper.dart';
 import '../Screens/Authentication/Auth_With_Email/signinpage.dart';
@@ -51,6 +52,9 @@ class Routes {
 
       case ForgotpassScreenRoute:
         return MaterialPageRoute(builder: (context) => const ForgotPass());
+
+      case MyProfilePageScreenRoute:
+        return MaterialPageRoute(builder: (context) => const MyProfilePage());
 
       case otpverificationScreenRoute:
         return MaterialPageRoute(
