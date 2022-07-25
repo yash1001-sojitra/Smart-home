@@ -8,13 +8,13 @@ import 'package:smarthome/Screens/Authentication/Auth_With_Number/auth_number.da
 import 'package:smarthome/Screens/Authentication/Auth_With_Number/otp_verification.dart';
 import 'package:smarthome/Screens/Authentication/Forgot_Password/forgotpass.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
-import 'package:smarthome/Screens/User/MyProfile/myprofile.dart';
 
 import '../Logic/helper/helper.dart';
 import '../Screens/Authentication/Auth_With_Email/signinpage.dart';
 import '../Screens/Authentication/Auth_With_Email/signuppage.dart';
 import '../Screens/Splash/onboardingscreen.dart';
 import '../Screens/Splash/splashscreen.dart';
+import '../Screens/User/Drawer/DrawerScreens/profile.dart';
 
 class Routes {
   late int initScreen;

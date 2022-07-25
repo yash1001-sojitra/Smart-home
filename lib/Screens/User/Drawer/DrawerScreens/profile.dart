@@ -5,11 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../Core/Constant/textcontroller.dart';
-import '../../../Logic/Modules/userData_model.dart';
-import '../../../Logic/Services/auth_services/auth_service.dart';
-import '../../Splash/splashscreen.dart';
 import 'package:file_picker/file_picker.dart';
+
+import '../../../../Core/Constant/textcontroller.dart';
+import '../../../../Logic/Modules/userData_model.dart';
+import '../../../../Logic/Services/auth_services/auth_service.dart';
+import '../../../Splash/splashscreen.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({Key? key}) : super(key: key);

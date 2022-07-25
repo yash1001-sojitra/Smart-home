@@ -146,8 +146,8 @@ class _SignupPageState extends State<SignupPage> {
                         initialCountryCode: 'IN',
                         flagsButtonPadding: const EdgeInsets.only(right: 10),
                         showDropdownIcon: true,
-                        dropdownIcon: const Icon(
-                            color: Colors.white, Icons.arrow_drop_down),
+                        dropdownIcon:
+                            Icon(color: Colors.white, Icons.arrow_drop_down),
                         keyboardType: TextInputType.phone,
                         decoration: const InputDecoration(
                           enabledBorder: UnderlineInputBorder(
