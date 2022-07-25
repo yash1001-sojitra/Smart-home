@@ -22,6 +22,7 @@ const String ForgotpassScreenRoute = '/forgotpass';
 
 //myprofile
 const String MyProfilePageScreenRoute = '/myprofilepage';
+const String AdduserProfileScreenRoute = '/adduser';
 //drawer
 const String drawerScreenRoute = '/drawerScreenRoute';
 

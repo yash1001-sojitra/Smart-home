@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smarthome/Core/Constant/string.dart';
 import '../../../../Logic/Modules/userData_model.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -109,7 +110,9 @@ class _UserDashState extends State<UserDash> {
               height: 25,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, AdduserProfileScreenRoute);
+              },
               child: Center(
                 child: Container(
                   height: 50,
