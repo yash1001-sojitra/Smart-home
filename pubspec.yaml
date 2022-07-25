@@ -76,7 +76,9 @@ dev_dependencies:
   rflutter_alert: 
   font_awesome_flutter: ^10.1.0
   favorite_button: ^0.0.4
-
+  fancy_bar: ^2.0.0
+  flutter_zoom_drawer: ^3.0.3
+  
   #rate 
   rate: ^0.0.1
 

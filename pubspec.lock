@@ -113,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  fancy_bar:
+    dependency: "direct dev"
+    description:
+      name: fancy_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   favorite_button:
     dependency: "direct dev"
     description:
@@ -296,6 +303,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_zoom_drawer:
+    dependency: "direct dev"
+    description:
+      name: flutter_zoom_drawer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.3"
   font_awesome_flutter:
     dependency: "direct dev"
     description:

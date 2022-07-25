@@ -19,157 +19,136 @@ class MyDrawer extends StatelessWidget {
       width: MediaQuery.of(context).size.width / 1.25,
       child: Drawer(
         backgroundColor: const Color(0xff1a1a1a),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 300,
-              child: DrawerHeader(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    "assets/images/profileimage.png",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyProfilePage(),
-                  ),
-                );
-              },
-              child: Text(
-                'Profile',
-                style: GoogleFonts.playfairDisplay(
-                    textStyle: style,
-                    letterSpacing: 3,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SettingScreen(),
-                  ),
-                );
-              },
-              child: Text(
-                'Settings',
-                style: GoogleFonts.playfairDisplay(
-                    textStyle: style,
-                    letterSpacing: 3,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DeviceScreen(),
-                  ),
-                );
-              },
-              child: Text(
-                'Device',
-                style: GoogleFonts.playfairDisplay(
-                    textStyle: style,
-                    letterSpacing: 3,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            GestureDetector(
-              onTap: () {
-                auth.signOut();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const AuthMain();
-                    },
-                  ),
-                );
-              },
-              child: Text(
-                'Log Out',
-                style: GoogleFonts.playfairDisplay(
-                    textStyle: style,
-                    letterSpacing: 3,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Material(
-              borderRadius: BorderRadius.circular(500),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(500),
-                splashColor: Colors.black45,
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: const CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.black,
-                  child: Icon(Icons.arrow_back, color: Colors.white),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Expanded(
-                child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 65,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.black,
-                child: const Center(
-                  child: Text(
-                    'v1.0.0',
-                    style: TextStyle(
-                      fontFamily: 'Avenir',
-                      fontSize: 20,
-                      color: Color(0xffffffff),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 300,
+                child: DrawerHeader(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: Image.asset(
+                      "assets/images/profileimage.png",
+                      fit: BoxFit.cover,
                     ),
-                    textAlign: TextAlign.center,
+                  ),
+                  decoration: const BoxDecoration(
+                    color: Colors.transparent,
                   ),
                 ),
               ),
-            ))
-          ],
+              const SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MyProfilePage(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Profile',
+                  style: GoogleFonts.playfairDisplay(
+                      textStyle: style,
+                      letterSpacing: 3,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SettingScreen(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Settings',
+                  style: GoogleFonts.playfairDisplay(
+                      textStyle: style,
+                      letterSpacing: 3,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DeviceScreen(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Device',
+                  style: GoogleFonts.playfairDisplay(
+                      textStyle: style,
+                      letterSpacing: 3,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  auth.signOut();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const AuthMain();
+                      },
+                    ),
+                  );
+                },
+                child: Text(
+                  'Log Out',
+                  style: GoogleFonts.playfairDisplay(
+                      textStyle: style,
+                      letterSpacing: 3,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Material(
+                borderRadius: BorderRadius.circular(500),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(500),
+                  splashColor: Colors.black45,
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.black,
+                    child: Icon(Icons.arrow_back, color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
