@@ -79,6 +79,9 @@ dev_dependencies:
   fancy_bar: ^2.0.0
   flutter_zoom_drawer: ^3.0.3
   sleek_circular_slider: ^2.0.1
+
+  #wireless connection --> bluetooth
+  flutter_blue: ^0.8.0
   
   #rate 
   rate: ^0.0.1

@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
+import 'package:smarthome/Screens/User/Device_Adding/add_device.dart';
 import 'package:smarthome/Screens/User/models/ac_view_model.dart';
 import 'package:smarthome/Screens/User/models/devices_model.dart';
 
@@ -39,7 +40,8 @@ class _BedRoomState extends State<BedRoom> {
                   hoverColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onPressed: () => Scaffold.of(context).openDrawer(),
+                  onPressed: () => Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => AddDevices())),
                   icon: const Icon(
                     Icons.add,
                     color: Colors.black,
