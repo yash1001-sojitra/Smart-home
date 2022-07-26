@@ -317,7 +317,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
                   ],
                 ),
               ),

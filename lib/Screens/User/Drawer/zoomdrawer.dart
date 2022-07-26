@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:flutter_zoom_drawer/config.dart';
@@ -19,8 +21,8 @@ class _ZoomdrawerState extends State<Zoomdrawer> {
       body: ZoomDrawer(
         controller: drawerController,
         style: DrawerStyle.style1,
-        menuScreen: MyDrawer(),
-        mainScreen: HomeDash(),
+        menuScreen: const MyDrawer(),
+        mainScreen: const HomeDash(),
         borderRadius: 24.0,
         showShadow: true,
         angle: 0.0,

@@ -23,6 +23,7 @@ const String ForgotpassScreenRoute = '/forgotpass';
 //myprofile
 const String MyProfilePageScreenRoute = '/myprofilepage';
 const String AdduserProfileScreenRoute = '/adduser';
+
 //drawer
 const String drawerScreenRoute = '/drawerScreenRoute';
 
@@ -30,4 +31,7 @@ const String drawerScreenRoute = '/drawerScreenRoute';
 const String homepageScreenRoute = '/homepageScreenRoute';
 const String searchScreenRoute = '/searchScreenRoute';
 
+//rooms page
+
+const String bedroomScreenRoute = '/bedroomScreenRoute';
 //****************End-Routes***********************

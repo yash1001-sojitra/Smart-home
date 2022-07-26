@@ -302,7 +302,6 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
                   ],
                 ),
               ),

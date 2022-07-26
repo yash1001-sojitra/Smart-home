@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +6,6 @@ import 'package:smarthome/Core/Constant/string.dart';
 import '../../../../Logic/Modules/userData_model.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../Drawer/drawer.dart';
 
@@ -58,8 +57,8 @@ class _UserDashState extends State<UserDash> {
                   focusColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onPressed: () => Scaffold.of(context).openDrawer(),
-                  icon: SvgPicture.asset(
-                    "assets/icons/drawer.svg",
+                  icon: Image.asset(
+                    "assets/images/menu.png",
                     height: 30,
                     width: 35,
                     color: Colors.black,

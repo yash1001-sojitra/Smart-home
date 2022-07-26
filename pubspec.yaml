@@ -78,6 +78,7 @@ dev_dependencies:
   favorite_button: ^0.0.4
   fancy_bar: ^2.0.0
   flutter_zoom_drawer: ^3.0.3
+  sleek_circular_slider: ^2.0.1
   
   #rate 
   rate: ^0.0.1
