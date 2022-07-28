@@ -100,7 +100,7 @@ class _AddDevicesState extends State<AddDevices> {
                 ),
                 itemCount: 6,
                 itemBuilder: (BuildContext context, int index) {
-                  return const DevicesModel();
+                  return const DevicesModel() ;
                 },
               ),
             ),

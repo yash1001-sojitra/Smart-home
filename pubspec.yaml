@@ -82,6 +82,8 @@ dev_dependencies:
 
   #wireless connection --> bluetooth
   flutter_blue: ^0.8.0
+
+  # music player
   
   #rate 
   rate: ^0.0.1

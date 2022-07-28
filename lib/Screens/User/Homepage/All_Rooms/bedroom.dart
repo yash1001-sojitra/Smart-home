@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:smarthome/Screens/User/Device_Adding/add_device.dart';
-import 'package:smarthome/Screens/User/models/ac_view_model.dart';
 import 'package:smarthome/Screens/User/models/devices_model.dart';
+import 'package:smarthome/Screens/User/models/light_view_model.dart';
 
 class BedRoom extends StatefulWidget {
   const BedRoom({Key? key}) : super(key: key);
@@ -17,6 +17,7 @@ class _BedRoomState extends State<BedRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawerEnableOpenDragGesture: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         toolbarHeight: 70,
@@ -40,8 +41,10 @@ class _BedRoomState extends State<BedRoom> {
                   hoverColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onPressed: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => AddDevices())),
+                  onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddDevices())),
                   icon: const Icon(
                     Icons.add,
                     color: Colors.black,
@@ -89,7 +92,8 @@ class _BedRoomState extends State<BedRoom> {
                   },
                 ),
               ),
-              const AcViewModel(),
+              // const AcViewModel(),
+              const LightViewModel()
             ],
           ),
         ),
