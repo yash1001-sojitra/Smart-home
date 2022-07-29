@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
-// import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-class AcViewModel extends StatelessWidget {
+import '../other/AC_Slider/circle_slider.dart';
+
+class AcViewModel extends StatefulWidget {
   const AcViewModel({Key? key}) : super(key: key);
 
+  @override
+  State<AcViewModel> createState() => _AcViewModelState();
+}
+
+class _AcViewModelState extends State<AcViewModel> {
+  var initval = 29;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // SleekCircularSlider(
-        //   appearance: CircularSliderAppearance(
-        //       customWidths: CustomSliderWidths(progressBarWidth: 10)),
-        //   min: 16,
-        //   max: 30,
-        //   initialValue: 29,
-        // )
-        Image.asset(
-          "assets/images/wheel.png",
+        const SizedBox(
+          height: 30,
         ),
+        Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          CircleSlider(
+            maxValue: 30,
+            value: initval,
+            onChanged: (value) {
+              setState(() {
+                initval = value;
+              });
+            },
+          ),
+        ]),
         Row(
           children: [
             const SizedBox(

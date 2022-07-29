@@ -9,7 +9,7 @@ class LightViewModel extends StatefulWidget {
 }
 
 class _LightViewModelState extends State<LightViewModel> {
-  double height = 10.0;
+  double init = 50.0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -90,12 +90,12 @@ class _LightViewModelState extends State<LightViewModel> {
                     child: Slider(
                       activeColor: Colors.white70,
                       inactiveColor: Colors.grey,
-                      value: height.toDouble(),
+                      value: init.toDouble(),
                       min: 0.0,
                       max: 100.0,
                       onChanged: (value) {
                         setState(() {
-                          height = value;
+                          init = value;
                         });
                       },
                     )),
@@ -110,7 +110,7 @@ class _LightViewModelState extends State<LightViewModel> {
                       ),
                     ),
                     Text(
-                      "${height.toInt()}%",
+                      "${init.toInt()}%",
                       style: const TextStyle(color: Colors.black, fontSize: 20),
                     ),
                     const Padding(

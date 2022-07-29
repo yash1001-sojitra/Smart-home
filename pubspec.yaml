@@ -79,6 +79,8 @@ dev_dependencies:
   fancy_bar: ^2.0.0
   flutter_zoom_drawer: ^3.0.3
   sleek_circular_slider: ^2.0.1
+  circular_clip_route: ^0.2.0+3
+  widget_circular_animator: ^1.0.0
 
   #wireless connection --> bluetooth
   flutter_blue: ^0.8.0

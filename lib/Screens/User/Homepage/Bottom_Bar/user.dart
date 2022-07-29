@@ -6,7 +6,7 @@ import 'package:smarthome/Core/Constant/string.dart';
 import '../../../../Logic/Modules/userData_model.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:widget_circular_animator/widget_circular_animator.dart';
 import '../../Drawer/drawer.dart';
 
 class UserDash extends StatefulWidget {
@@ -34,16 +34,21 @@ class _UserDashState extends State<UserDash> {
       drawerEnableOpenDragGesture: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        toolbarHeight: 70,
+        toolbarHeight: 80,
         automaticallyImplyLeading: false,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
-          child: CircleAvatar(
-            radius: 10,
-            backgroundColor: Colors.grey,
+          child: WidgetCircularAnimator(
+            innerColor: Colors.blue,
+            singleRing: true,
+            size: 58,
             child: CircleAvatar(
-              backgroundImage: NetworkImage(userDataList.first.userimage),
-              radius: 50,
+              radius: 10,
+              backgroundColor: Colors.grey,
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(userDataList.first.userimage),
+                radius: 50,
+              ),
             ),
           ),
         ),

@@ -6,8 +6,8 @@ import 'package:smarthome/Core/Constant/string.dart';
 import '../../../../Logic/Modules/userData_model.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../Drawer/drawer.dart';
+import 'package:widget_circular_animator/widget_circular_animator.dart';
 
 class HomeDash extends StatefulWidget {
   const HomeDash({Key? key}) : super(key: key);
@@ -37,14 +37,22 @@ class _HomeDashState extends State<HomeDash> {
         backgroundColor: Colors.transparent,
         toolbarHeight: 70,
         automaticallyImplyLeading: false,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 8),
-          child: CircleAvatar(
-            radius: 25,
-            backgroundColor: Colors.grey,
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(userDataList.first.userimage),
-              radius: 70,
+        leading: GestureDetector(
+          onTap: (() {}),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: WidgetCircularAnimator(
+              innerColor: Colors.blue,
+              singleRing: true,
+              size: 58,
+              child: CircleAvatar(
+                radius: 25,
+                backgroundColor: Colors.grey,
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(userDataList.first.userimage),
+                  radius: 70,
+                ),
+              ),
             ),
           ),
         ),

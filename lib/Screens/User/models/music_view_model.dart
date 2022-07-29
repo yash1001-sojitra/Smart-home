@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'dart:math' as math;
@@ -12,6 +13,7 @@ class MusicViewModel extends StatefulWidget {
 }
 
 class _MusicViewModelState extends State<MusicViewModel> {
+  bool _switchValue = true;
   double initval = 0;
   @override
   Widget build(BuildContext context) {
@@ -96,6 +98,14 @@ class _MusicViewModelState extends State<MusicViewModel> {
                   style: TextStyle(color: Colors.grey),
                 )
               ],
+            ),
+            CupertinoSwitch(
+              value: _switchValue,
+              onChanged: (value) {
+                setState(() {
+                  _switchValue = value;
+                });
+              },
             ),
           ],
         ),
