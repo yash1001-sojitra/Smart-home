@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:smarthome/Screens/User/Device_Adding/add_device.dart';
 import 'package:smarthome/Screens/User/models/ac_view_model.dart';
 import 'package:smarthome/Screens/User/models/devices_model.dart';
-import 'package:smarthome/Screens/User/models/security_view_model.dart';
 
 class BedRoom extends StatefulWidget {
   const BedRoom({Key? key}) : super(key: key);

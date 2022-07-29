@@ -38,8 +38,8 @@ class CircleSliderPainter extends CustomPainter {
         Offset.zero,
         Offset(widgetSize, widgetSize),
         [
-          ui.Color.fromARGB(255, 225, 245, 255),
-          ui.Color.fromARGB(255, 144, 196, 241),
+          const ui.Color.fromARGB(255, 225, 245, 255),
+          const ui.Color.fromARGB(255, 144, 196, 241),
         ],
       );
 
@@ -100,8 +100,8 @@ class CircleSliderPainter extends CustomPainter {
           Offset(widgetSize * .25, widgetSize),
           Offset(widgetSize, widgetSize * .25),
           [
-            ui.Color.fromARGB(255, 89, 177, 244),
-            ui.Color.fromARGB(255, 6, 204, 239),
+            const Color.fromARGB(255, 89, 177, 244),
+            const Color.fromARGB(255, 6, 204, 239),
           ],
         ),
     );

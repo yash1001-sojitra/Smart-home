@@ -29,6 +29,17 @@ class _HomeDashState extends State<HomeDash> {
       }
     });
 
+    String greeting() {
+      var hour = DateTime.now().hour;
+      if (hour < 12) {
+        return 'Good Morning';
+      }
+      if (hour < 17) {
+        return 'Good Afternoon';
+      }
+      return 'Good Evening';
+    }
+
     return Scaffold(
       backgroundColor: Colors.white30,
       drawer: const MyDrawer(),
@@ -44,7 +55,7 @@ class _HomeDashState extends State<HomeDash> {
             child: WidgetCircularAnimator(
               innerColor: Colors.blue,
               singleRing: true,
-              size: 58,
+              size: 55,
               child: CircleAvatar(
                 radius: 25,
                 backgroundColor: Colors.grey,
@@ -93,12 +104,12 @@ class _HomeDashState extends State<HomeDash> {
               height: 10,
             ),
             Row(
-              children: const [
+              children: [
                 Text(
-                  "Good Morning, ",
-                  style: TextStyle(color: Colors.grey),
+                  "${greeting()}, ",
+                  style: const TextStyle(color: Colors.grey),
                 ),
-                Text(
+                const Text(
                   "Welcome back.",
                   style: TextStyle(color: Colors.grey),
                 )
@@ -173,6 +184,7 @@ class RoomsListViewModel extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text(
                   "Living room",

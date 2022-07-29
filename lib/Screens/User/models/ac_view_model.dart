@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: depend_on_referenced_packages
 
+import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../other/AC_Slider/circle_slider.dart';
 
 class AcViewModel extends StatefulWidget {
@@ -10,6 +12,8 @@ class AcViewModel extends StatefulWidget {
 }
 
 class _AcViewModelState extends State<AcViewModel> {
+  bool showLoading = false;
+  bool showAlert = false;
   var initval = 29;
   @override
   Widget build(BuildContext context) {
@@ -52,6 +56,8 @@ class _AcViewModelState extends State<AcViewModel> {
         const SizedBox(
           height: 20,
         ),
+        // Call when you want to show the time picker
+
         GestureDetector(
           onTap: () {},
           child: Center(
@@ -84,5 +90,17 @@ class _AcViewModelState extends State<AcViewModel> {
         ),
       ],
     );
+  }
+
+  Future<void> alertBox(BuildContext context, e) {
+    setState(() {
+      showLoading = false;
+      showAlert = true;
+    });
+    return Alert(
+      context: context,
+      title: "ALERT",
+      desc: e.toString(),
+    ).show();
   }
 }

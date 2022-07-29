@@ -41,13 +41,13 @@ class _UserDashState extends State<UserDash> {
           child: WidgetCircularAnimator(
             innerColor: Colors.blue,
             singleRing: true,
-            size: 58,
+            size: 55,
             child: CircleAvatar(
               radius: 10,
               backgroundColor: Colors.grey,
               child: CircleAvatar(
                 backgroundImage: NetworkImage(userDataList.first.userimage),
-                radius: 50,
+                radius: 70,
               ),
             ),
           ),
