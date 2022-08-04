@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../other/AC_Slider/circle_slider.dart';
@@ -15,6 +16,7 @@ class _AcViewModelState extends State<AcViewModel> {
   bool showLoading = false;
   bool showAlert = false;
   var initval = 29;
+  bool isAcconnected = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,28 +35,40 @@ class _AcViewModelState extends State<AcViewModel> {
             },
           ),
         ]),
-        Row(
-          children: [
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "Samsung AC",
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 23),
-                ),
-                Text(
-                  "Connected",
-                  style: TextStyle(color: Colors.grey),
-                )
-              ],
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Samsung AC",
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 23),
+                  ),
+                  Text(
+                    "Connected",
+                    style: TextStyle(color: Colors.grey),
+                  )
+                ],
+              ),
+              CupertinoSwitch(
+                activeColor: Colors.blue,
+                trackColor: Colors.grey,
+                thumbColor: isAcconnected ? Colors.white : Colors.white,
+                value: isAcconnected,
+                onChanged: (value) {
+                  setState(() {
+                    isAcconnected = value;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
         const SizedBox(
-          height: 20,
+          height: 30,
         ),
         // Call when you want to show the time picker
 

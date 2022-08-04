@@ -12,9 +12,24 @@ class MusicViewModel extends StatefulWidget {
   State<MusicViewModel> createState() => _MusicViewModelState();
 }
 
-class _MusicViewModelState extends State<MusicViewModel> {
-  bool _switchValue = true;
+class _MusicViewModelState extends State<MusicViewModel>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController animationController;
   double initval = 0;
+  bool isplay = false;
+  bool isPlayerconnected = false;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 7),
+    );
+
+    animationController.repeat();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,15 +38,24 @@ class _MusicViewModelState extends State<MusicViewModel> {
           height: 30,
         ),
         Stack(children: [
-          const Positioned(
+          Positioned(
             top: 15,
             left: 15,
-            child: CircleAvatar(
-              radius: 75,
-              child: CircleAvatar(
-                backgroundImage: AssetImage("assets/images/musicimage.jpg"),
-                radius: 80,
+            child: AnimatedBuilder(
+              animation: animationController,
+              child: const CircleAvatar(
+                radius: 75,
+                child: CircleAvatar(
+                  backgroundImage: AssetImage("assets/images/musicimage.jpg"),
+                  radius: 80,
+                ),
               ),
+              builder: (BuildContext context, Widget? widget) {
+                return Transform.rotate(
+                  angle: animationController.value * 6.3,
+                  child: widget,
+                );
+              },
             ),
           ),
           SleekCircularSlider(
@@ -81,33 +105,37 @@ class _MusicViewModelState extends State<MusicViewModel> {
         const SizedBox(
           height: 30,
         ),
-        Row(
-          children: [
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "Harman Kardon",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 23),
-                ),
-                Text(
-                  "Connected",
-                  style: TextStyle(color: Colors.grey),
-                )
-              ],
-            ),
-            CupertinoSwitch(
-              value: _switchValue,
-              onChanged: (value) {
-                setState(() {
-                  _switchValue = value;
-                });
-              },
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Harman Kardon",
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 23),
+                  ),
+                  Text(
+                    "Connected",
+                    style: TextStyle(color: Colors.grey),
+                  )
+                ],
+              ),
+              CupertinoSwitch(
+                activeColor: Colors.blue,
+                trackColor: Colors.grey,
+                thumbColor: isPlayerconnected ? Colors.white : Colors.white,
+                value: isPlayerconnected,
+                onChanged: (value) {
+                  setState(() {
+                    isPlayerconnected = value;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 20,
@@ -130,8 +158,8 @@ class _MusicViewModelState extends State<MusicViewModel> {
               width: 30,
             ),
             Stack(
-              children: const [
-                CircleAvatar(
+              children: [
+                const CircleAvatar(
                   radius: 30,
                   child: CircleAvatar(
                     backgroundImage: AssetImage("assets/images/musicimage.jpg"),
@@ -141,13 +169,28 @@ class _MusicViewModelState extends State<MusicViewModel> {
                 Positioned(
                   top: 5,
                   left: 4.5,
-                  child: IconButton(
-                      onPressed: null,
-                      icon: Icon(
-                        Icons.pause,
-                        size: 35,
-                        color: Colors.white,
-                      )),
+                  child: GestureDetector(
+                    onTap: () {
+                      if (isplay == true) {
+                        setState(() {
+                          isplay = false;
+                          animationController.repeat();
+                        });
+                      } else {
+                        setState(() {
+                          isplay = true;
+                          animationController.stop();
+                        });
+                      }
+                    },
+                    child: IconButton(
+                        onPressed: null,
+                        icon: Icon(
+                          isplay ? Icons.play_arrow : Icons.pause,
+                          size: 35,
+                          color: Colors.white,
+                        )),
+                  ),
                 )
               ],
             ),

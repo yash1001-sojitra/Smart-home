@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, unnecessary_null_comparison
+// ignore_for_file: depend_on_referenced_packages, unnecessary_null_comparison, avoid_returning_null_for_void, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +26,8 @@ class _HomeDashState extends State<HomeDash> {
     userDataListRaw?.forEach((element) {
       if (user.uid == element.id) {
         userDataList.add(element);
+      } else {
+        return null;
       }
     });
 
@@ -60,7 +62,10 @@ class _HomeDashState extends State<HomeDash> {
                 radius: 25,
                 backgroundColor: Colors.grey,
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(userDataList.first.userimage),
+                  // backgroundImage: userDataList == 0
+                  //     ? const NetworkImage(
+                  //         "https://www.pngitem.com/middle/hhmRJo_profile-icon-png-image-free-download-searchpng-employee/")
+                  //     : NetworkImage(userDataList.first.userimage),
                   radius: 70,
                 ),
               ),
@@ -94,7 +99,9 @@ class _HomeDashState extends State<HomeDash> {
               children: [
                 const Text("Hello, ", style: TextStyle(fontSize: 25)),
                 Text(
-                  "${userDataList.first.Name} !",
+                  // "${userDataList.first.Name} !",
+
+                  "name",
                   style: const TextStyle(
                       fontSize: 25, fontWeight: FontWeight.w600),
                 )

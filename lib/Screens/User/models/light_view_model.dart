@@ -10,6 +10,7 @@ class LightViewModel extends StatefulWidget {
 
 class _LightViewModelState extends State<LightViewModel> {
   double init = 50.0;
+  bool isLightconnected = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,25 +39,37 @@ class _LightViewModelState extends State<LightViewModel> {
             ),
           ]),
         ),
-        Row(
-          children: [
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "Philips Lamp",
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 23),
-                ),
-                Text(
-                  "Connected",
-                  style: TextStyle(color: Colors.grey),
-                )
-              ],
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Philips Lamp",
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 23),
+                  ),
+                  Text(
+                    "Connected",
+                    style: TextStyle(color: Colors.grey),
+                  )
+                ],
+              ),
+              CupertinoSwitch(
+                activeColor: Colors.blue,
+                trackColor: Colors.grey,
+                thumbColor: isLightconnected ? Colors.white : Colors.white,
+                value: isLightconnected,
+                onChanged: (value) {
+                  setState(() {
+                    isLightconnected = value;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 30,
