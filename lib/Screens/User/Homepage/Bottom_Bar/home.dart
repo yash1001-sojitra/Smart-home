@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import '../../../../Logic/Modules/userData_model.dart';
-import '../../../../Logic/Providers/sign_in_provider.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../Drawer/drawer.dart';
@@ -18,31 +17,31 @@ class HomeDash extends StatefulWidget {
 }
 
 class _HomeDashState extends State<HomeDash> {
-  Future getData() async {
-    final sp = context.read<SignInProvider>();
-    sp.getDataFromSharedPreferences();
-  }
+  // Future getData() async {
+  //   final sp = context.read<SignInProvider>();
+  //   sp.getDataFromSharedPreferences();
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getData();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    // final authService = Provider.of<AuthService>(context);
-    // User user = authService.getcurrentUser();
-    // List<UserData> userDataList = [];
-    // final userDataListRaw = Provider.of<List<UserData>?>(context);
-    // userDataListRaw?.forEach((element) {
-    //   if (user.uid == element.id) {
-    //     userDataList.add(element);
-    //   } else {
-    //     return null;
-    //   }
-    // });
-    final sp = context.watch<SignInProvider>();
+    final authService = Provider.of<AuthService>(context);
+    User user = authService.getcurrentUser();
+    List<UserData> userDataList = [];
+    final userDataListRaw = Provider.of<List<UserData>?>(context);
+    userDataListRaw?.forEach((element) {
+      if (user.uid == element.id) {
+        userDataList.add(element);
+      } else {
+        return null;
+      }
+    });
+    // final sp = context.watch<SignInProvider>();
 
     String greeting() {
       var hour = DateTime.now().hour;
@@ -75,7 +74,10 @@ class _HomeDashState extends State<HomeDash> {
                 radius: 25,
                 backgroundColor: Colors.grey,
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage("${sp.imageUrl}"),
+                  backgroundImage: userDataList == 0
+                      ? const NetworkImage(
+                          "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png")
+                      : NetworkImage(userDataList.first.userimage),
                   radius: 70,
                 ),
               ),
@@ -109,7 +111,7 @@ class _HomeDashState extends State<HomeDash> {
               children: [
                 const Text("Hello, ", style: TextStyle(fontSize: 25)),
                 Text(
-                  "${sp.name}!",
+                  "${userDataList.first.Name}!",
                   style: const TextStyle(
                       fontSize: 25, fontWeight: FontWeight.w600),
                 )

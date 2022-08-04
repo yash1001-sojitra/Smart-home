@@ -6,15 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
-import '../../../Logic/Providers/internet_provider.dart';
-import '../../../Logic/Providers/sign_in_provider.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
 import '../../../Logic/helper/helper.dart';
 import '../../Splash/splashscreen.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-
-import '../../User/other/snack_bar.dart';
 
 class NumberAuth extends StatefulWidget {
   const NumberAuth({Key? key}) : super(key: key);
@@ -241,7 +237,8 @@ class _NumberAuthState extends State<NumberAuth> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            handleGoogleSignIn();
+                            // handleGoogleSignIn();
+                            signupwithgoogle(context);
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
@@ -293,44 +290,44 @@ class _NumberAuthState extends State<NumberAuth> {
     }
   }
 
-  Future handleGoogleSignIn() async {
-    final sp = context.read<SignInProvider>();
-    final ip = context.read<InternetProvider>();
-    await ip.checkInternetConnection();
+  // Future handleGoogleSignIn() async {
+  //   final sp = context.read<SignInProvider>();
+  //   final ip = context.read<InternetProvider>();
+  //   await ip.checkInternetConnection();
 
-    if (ip.hasInternet == false) {
-      openSnackbar(context, "Check your Internet connection", Colors.red);
-      googleController.reset();
-    } else {
-      await sp.signInWithGoogle().then((value) {
-        if (sp.hasError == true) {
-          openSnackbar(context, sp.errorCode.toString(), Colors.red);
-          googleController.reset();
-        } else {
-          // checking whether user exists or not
-          sp.checkUserExists().then((value) async {
-            if (value == true) {
-              // user exists
-              await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
-                  .saveDataToSharedPreferences()
-                  .then((value) => sp.setSignIn().then((value) {
-                        googleController.success();
-                        Navigator.pushNamed(context, homepageScreenRoute);
-                      })));
-            } else {
-              // user does not exist
-              sp.saveDataToFirestore().then((value) => sp
-                  .saveDataToSharedPreferences()
-                  .then((value) => sp.setSignIn().then((value) {
-                        googleController.success();
-                        Navigator.pushNamed(context, homepageScreenRoute);
-                      })));
-            }
-          });
-        }
-      });
-    }
-  }
+  //   if (ip.hasInternet == false) {
+  //     openSnackbar(context, "Check your Internet connection", Colors.red);
+  //     googleController.reset();
+  //   } else {
+  //     await sp.signInWithGoogle().then((value) {
+  //       if (sp.hasError == true) {
+  //         openSnackbar(context, sp.errorCode.toString(), Colors.red);
+  //         googleController.reset();
+  //       } else {
+  //         // checking whether user exists or not
+  //         sp.checkUserExists().then((value) async {
+  //           if (value == true) {
+  //             // user exists
+  //             await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
+  //                 .saveDataToSharedPreferences()
+  //                 .then((value) => sp.setSignIn().then((value) {
+  //                       googleController.success();
+  //                       Navigator.pushNamed(context, homepageScreenRoute);
+  //                     })));
+  //           } else {
+  //             // user does not exist
+  //             sp.saveDataToFirestore().then((value) => sp
+  //                 .saveDataToSharedPreferences()
+  //                 .then((value) => sp.setSignIn().then((value) {
+  //                       googleController.success();
+  //                       Navigator.pushNamed(context, homepageScreenRoute);
+  //                     })));
+  //           }
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
   Future<void> signupwithgoogle(BuildContext context) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
