@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smarthome/Logic/Services/fireStoreServices/user_firestore_services.dart';
 import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
+import 'Logic/Providers/internet_provider.dart';
+import 'Logic/Providers/sign_in_provider.dart';
 import 'Logic/Providers/userData_provider.dart';
 import 'Logic/Services/auth_services/auth_service.dart';
 import 'Logic/helper/globals.dart';
@@ -38,6 +40,12 @@ Future<void> main() async {
       // Provider<FirebasePhoneAuthProvider>(
       //   create: (_) => UserDataFirestoreService(),
       // ),
+      ChangeNotifierProvider(
+        create: ((context) => SignInProvider()),
+      ),
+      ChangeNotifierProvider(
+        create: ((context) => InternetProvider()),
+      ),
     ],
     child: const MyApp(),
   ));

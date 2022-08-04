@@ -2,11 +2,15 @@
 
 import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Screens/Splash/splashscreen.dart';
 import 'package:lottie/lottie.dart';
+import '../../../Logic/Providers/internet_provider.dart';
+import '../../../Logic/Providers/sign_in_provider.dart';
 import '../../../Logic/helper/helper.dart';
 import '../../../Logic/widgets/pin_input.dart';
+import '../../User/other/snack_bar.dart';
 
 class VerifyPhoneNumberScreen extends StatefulWidget {
   final String phoneNumber;
@@ -63,6 +67,14 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
 
   @override
   Widget build(BuildContext context) {
+    // final _formkey = GlobalKey<FormState>();
+    // TextEditingController phoneController = TextEditingController();
+    // TextEditingController emailController = TextEditingController();
+    // TextEditingController nameController = TextEditingController();
+    // TextEditingController otpCodeController = TextEditingController();
+    // final sp = context.read<SignInProvider>();
+    // final ip = context.read<InternetProvider>();
+
     return SafeArea(
       child: FirebasePhoneAuthHandler(
         phoneNumber: widget.phoneNumber,

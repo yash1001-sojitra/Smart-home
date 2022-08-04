@@ -1,9 +1,10 @@
-// ignore_for_file: must_be_immutable, depend_on_referenced_packages
+// ignore_for_file: must_be_immutable, depend_on_referenced_packages, avoid_returning_null_for_void, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import '../../../../Logic/Modules/userData_model.dart';
+import '../../../../Logic/Providers/sign_in_provider.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
@@ -17,17 +18,31 @@ class UserDash extends StatefulWidget {
 }
 
 class _UserDashState extends State<UserDash> {
+  Future getData() async {
+    final sp = context.read<SignInProvider>();
+    sp.getDataFromSharedPreferences();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
-    User user = authService.getcurrentUser();
-    List<UserData> userDataList = [];
-    final userDataListRaw = Provider.of<List<UserData>?>(context);
-    userDataListRaw?.forEach((element) {
-      if (user.uid == element.id) {
-        userDataList.add(element);
-      }
-    });
+    // final authService = Provider.of<AuthService>(context);
+    // User user = authService.getcurrentUser();
+    // List<UserData> userDataList = [];
+    // final userDataListRaw = Provider.of<List<UserData>?>(context);
+    // userDataListRaw?.forEach((element) {
+    //   if (user.uid == element.id) {
+    //     userDataList.add(element);
+    //   } else {
+    //     return null;
+    //   }
+    // });
+    final sp = context.watch<SignInProvider>();
     return Scaffold(
       backgroundColor: Colors.white30,
       drawer: const MyDrawer(),
@@ -46,7 +61,7 @@ class _UserDashState extends State<UserDash> {
               radius: 10,
               backgroundColor: Colors.grey,
               child: CircleAvatar(
-                backgroundImage: NetworkImage(userDataList.first.userimage),
+                backgroundImage: NetworkImage("${sp.imageUrl}"),
                 radius: 70,
               ),
             ),
@@ -105,7 +120,8 @@ class _UserDashState extends State<UserDash> {
                 itemCount: 3,
                 itemBuilder: (BuildContext context, int index) {
                   return UserListModel(
-                    src: userDataList.first.userimage,
+                    name: "${sp.name}",
+                    src: "${sp.imageUrl}",
                   );
                 },
               ),
@@ -152,8 +168,10 @@ class _UserDashState extends State<UserDash> {
 }
 
 class UserListModel extends StatelessWidget {
-  UserListModel({required this.src, Key? key}) : super(key: key);
+  UserListModel({required this.name, required this.src, Key? key})
+      : super(key: key);
   String src;
+  String name;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -181,9 +199,9 @@ class UserListModel extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Name",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Text(
+                    name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 10,

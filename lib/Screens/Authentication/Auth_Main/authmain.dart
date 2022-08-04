@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Logic/Services/auth_services/auth_service.dart';
-import 'package:smarthome/Screens/User/Homepage/homepage.dart';
-
+import '../../../Logic/Providers/internet_provider.dart';
+import '../../../Logic/Providers/sign_in_provider.dart';
 import '../../Splash/splashscreen.dart';
+import '../../User/other/snack_bar.dart';
 
 class AuthMain extends StatefulWidget {
   const AuthMain({Key? key}) : super(key: key);
@@ -23,6 +25,13 @@ class _AuthMainState extends State<AuthMain> {
   bool showAlert = false;
   bool ispasswordvisible = true;
   final _formkey = GlobalKey<FormState>();
+
+  final RoundedLoadingButtonController googleController =
+      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController facebookController =
+      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController phoneController =
+      RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +150,8 @@ class _AuthMainState extends State<AuthMain> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            signupwithgoogle(context);
+                            // signupwithgoogle(context);
+                            handleGoogleSignIn();
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
@@ -159,19 +169,7 @@ class _AuthMainState extends State<AuthMain> {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            // FacebookAuth.instance.login(permissions: [
-                            //   "public_profile",
-                            //   "email"
-                            // ]).then((value) {
-                            //   FacebookAuth.instance
-                            //       .getUserData()
-                            //       .then((userData) {
-                            //     setState(() {
-                            //       _isLoggedIn = true;
-                            //       _userObj = userData;
-                            //     });
-                            //   });
-                            // });
+                            handleFacebookAuth();
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
@@ -219,8 +217,87 @@ class _AuthMainState extends State<AuthMain> {
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
     if (googleSignInAccount != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Homepage()));
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => const Homepage()));
+    }
+  }
+
+  // handling google sigin in
+  Future handleFacebookAuth() async {
+    final sp = context.read<SignInProvider>();
+    final ip = context.read<InternetProvider>();
+    await ip.checkInternetConnection();
+
+    if (ip.hasInternet == false) {
+      openSnackbar(context, "Check your Internet connection", Colors.red);
+      facebookController.reset();
+    } else {
+      await sp.signInWithFacebook().then((value) {
+        if (sp.hasError == true) {
+          openSnackbar(context, sp.errorCode.toString(), Colors.red);
+          facebookController.reset();
+        } else {
+          // checking whether user exists or not
+          sp.checkUserExists().then((value) async {
+            if (value == true) {
+              // user exists
+              await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
+                  .saveDataToSharedPreferences()
+                  .then((value) => sp.setSignIn().then((value) {
+                        facebookController.success();
+                        Navigator.pushNamed(context, homepageScreenRoute);
+                      })));
+            } else {
+              // user does not exist
+              sp.saveDataToFirestore().then((value) => sp
+                  .saveDataToSharedPreferences()
+                  .then((value) => sp.setSignIn().then((value) {
+                        facebookController.success();
+                        Navigator.pushNamed(context, homepageScreenRoute);
+                      })));
+            }
+          });
+        }
+      });
+    }
+  }
+
+  Future handleGoogleSignIn() async {
+    final sp = context.read<SignInProvider>();
+    final ip = context.read<InternetProvider>();
+    await ip.checkInternetConnection();
+
+    if (ip.hasInternet == false) {
+      openSnackbar(context, "Check your Internet connection", Colors.red);
+      googleController.reset();
+    } else {
+      await sp.signInWithGoogle().then((value) {
+        if (sp.hasError == true) {
+          openSnackbar(context, sp.errorCode.toString(), Colors.red);
+          googleController.reset();
+        } else {
+          // checking whether user exists or not
+          sp.checkUserExists().then((value) async {
+            if (value == true) {
+              // user exists
+              await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
+                  .saveDataToSharedPreferences()
+                  .then((value) => sp.setSignIn().then((value) {
+                        googleController.success();
+                        Navigator.pushNamed(context, homepageScreenRoute);
+                      })));
+            } else {
+              // user does not exist
+              sp.saveDataToFirestore().then((value) => sp
+                  .saveDataToSharedPreferences()
+                  .then((value) => sp.setSignIn().then((value) {
+                        googleController.success();
+                        Navigator.pushNamed(context, homepageScreenRoute);
+                      })));
+            }
+          });
+        }
+      });
     }
   }
 }

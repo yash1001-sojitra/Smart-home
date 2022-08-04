@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
+import '../../../Logic/Providers/internet_provider.dart';
+import '../../../Logic/Providers/sign_in_provider.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
 import '../../../Logic/helper/helper.dart';
 import '../../Splash/splashscreen.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+
+import '../../User/other/snack_bar.dart';
 
 class NumberAuth extends StatefulWidget {
   const NumberAuth({Key? key}) : super(key: key);
@@ -24,6 +29,18 @@ class _NumberAuthState extends State<NumberAuth> {
   bool showAlert = false;
   bool ispasswordvisible = true;
   final _formkey = GlobalKey<FormState>();
+  // TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController otpCodeController = TextEditingController();
+
+  final RoundedLoadingButtonController googleController =
+      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController facebookController =
+      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController phoneController =
+      RoundedLoadingButtonController();
+
   String? phoneNumber;
 
   @override
@@ -71,6 +88,69 @@ class _NumberAuthState extends State<NumberAuth> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                        height: 70,
+                        width: 325,
+                        child: TextField(
+                          onChanged: (((value) => '')),
+                          obscureText: false,
+                          controller: nameController,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.name,
+                          cursorColor: Colors.white,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 17),
+                          decoration: const InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            prefixIcon: Icon(
+                              Icons.person,
+                              color: Colors.white54,
+                            ),
+                            labelText: 'Name',
+                            labelStyle: TextStyle(
+                              color: Colors.white60,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        )),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                        height: 70,
+                        width: 325,
+                        child: TextFormField(
+                          controller: emailController,
+                          obscureText: false,
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.emailAddress,
+                          cursorColor: Colors.white,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 20),
+                          decoration: const InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            prefixIcon: Icon(
+                              Icons.email,
+                              color: Colors.white54,
+                            ),
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                              color: Colors.white60,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        )),
                     const SizedBox(height: 30),
                     Padding(
                       padding: const EdgeInsets.only(left: 18.0, right: 18),
@@ -161,7 +241,7 @@ class _NumberAuthState extends State<NumberAuth> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            signupwithgoogle(context);
+                            handleGoogleSignIn();
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
@@ -210,6 +290,45 @@ class _NumberAuthState extends State<NumberAuth> {
           });
     } else {
       return null;
+    }
+  }
+
+  Future handleGoogleSignIn() async {
+    final sp = context.read<SignInProvider>();
+    final ip = context.read<InternetProvider>();
+    await ip.checkInternetConnection();
+
+    if (ip.hasInternet == false) {
+      openSnackbar(context, "Check your Internet connection", Colors.red);
+      googleController.reset();
+    } else {
+      await sp.signInWithGoogle().then((value) {
+        if (sp.hasError == true) {
+          openSnackbar(context, sp.errorCode.toString(), Colors.red);
+          googleController.reset();
+        } else {
+          // checking whether user exists or not
+          sp.checkUserExists().then((value) async {
+            if (value == true) {
+              // user exists
+              await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
+                  .saveDataToSharedPreferences()
+                  .then((value) => sp.setSignIn().then((value) {
+                        googleController.success();
+                        Navigator.pushNamed(context, homepageScreenRoute);
+                      })));
+            } else {
+              // user does not exist
+              sp.saveDataToFirestore().then((value) => sp
+                  .saveDataToSharedPreferences()
+                  .then((value) => sp.setSignIn().then((value) {
+                        googleController.success();
+                        Navigator.pushNamed(context, homepageScreenRoute);
+                      })));
+            }
+          });
+        }
+      });
     }
   }
 
