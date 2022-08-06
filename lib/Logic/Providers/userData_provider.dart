@@ -47,7 +47,7 @@ class UsereDataProvider with ChangeNotifier {
 
   void saveUserData() {
     var userData = UserData(
-        email: getEmail,
+        Email: getEmail,
         Name: getName,
         phoneNumber: getphonenumber,
         id: getId,

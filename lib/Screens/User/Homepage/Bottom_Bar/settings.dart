@@ -11,7 +11,7 @@ class SettingDash extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-            child: Icon(Icons.signpost_outlined),
+            child: const Icon(Icons.signpost_outlined),
             onTap: () {
               FirebaseAuth.instance.signOut();
               Navigator.pushReplacement(

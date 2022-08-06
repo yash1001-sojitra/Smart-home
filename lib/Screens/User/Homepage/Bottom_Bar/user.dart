@@ -7,6 +7,7 @@ import '../../../../Logic/Modules/userData_model.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
+import '../../Drawer/DrawerScreens/profile.dart';
 import '../../Drawer/drawer.dart';
 
 class UserDash extends StatefulWidget {
@@ -30,7 +31,7 @@ class _UserDashState extends State<UserDash> {
         return null;
       }
     });
-    // final sp = context.watch<SignInProvider>();
+
     return Scaffold(
       backgroundColor: Colors.white30,
       drawer: const MyDrawer(),
@@ -41,19 +42,29 @@ class _UserDashState extends State<UserDash> {
         automaticallyImplyLeading: false,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
-          child: WidgetCircularAnimator(
-            innerColor: Colors.blue,
-            singleRing: true,
-            size: 55,
-            child: CircleAvatar(
-              radius: 10,
-              backgroundColor: Colors.grey,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MyProfilePage(),
+                ),
+              );
+            },
+            child: WidgetCircularAnimator(
+              innerColor: Colors.blue,
+              singleRing: true,
+              size: 55,
               child: CircleAvatar(
-                backgroundImage: userDataList == 0
-                    ? const NetworkImage(
-                        "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png")
-                    : NetworkImage(userDataList.first.userimage),
-                radius: 70,
+                radius: 10,
+                backgroundColor: Colors.grey,
+                child: CircleAvatar(
+                  backgroundImage: userDataList == 0
+                      ? const NetworkImage(
+                          "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png")
+                      : NetworkImage(userDataList.first.userimage),
+                  radius: 70,
+                ),
               ),
             ),
           ),

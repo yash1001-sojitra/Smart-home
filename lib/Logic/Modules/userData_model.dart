@@ -3,14 +3,14 @@
 class UserData {
   String id;
   String Name;
-  String email;
+  String Email;
   String phoneNumber;
   String userimage;
   DateTime time;
   UserData(
       {required this.id,
       required this.Name,
-      required this.email,
+      required this.Email,
       required this.phoneNumber,
       required this.userimage,
       required this.time});
@@ -19,7 +19,7 @@ class UserData {
     return {
       'id': id,
       'Name': Name,
-      'Email': email,
+      'Email': Email,
       'PhoneNumber': phoneNumber,
       'UserImage': userimage,
       'time': time,
@@ -29,7 +29,7 @@ class UserData {
   UserData.fromFirestore(Map<String, dynamic>? firestoreMap)
       : id = firestoreMap!['id'],
         Name = firestoreMap['Name'],
-        email = firestoreMap['Email'],
+        Email = firestoreMap['Email'],
         phoneNumber = firestoreMap['PhoneNumber'],
         userimage = firestoreMap['UserImage'],
         time = firestoreMap['time'].toDate();

@@ -1,12 +1,15 @@
-// ignore_for_file: depend_on_referenced_packages, unused_local_variable
+// ignore_for_file: depend_on_referenced_packages, unused_local_variable, avoid_returning_null_for_void, use_build_context_synchronously
 
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:smarthome/Screens/Authentication/Auth_Main/authmain.dart';
 import '../../../../Logic/Modules/userData_model.dart';
+import '../../../../Logic/Providers/userData_provider.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import '../../../Splash/splashscreen.dart';
 
@@ -25,9 +28,19 @@ class _MyProfilePageState extends State<MyProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    UserData? userData;
     final authService = Provider.of<AuthService>(context);
     User user = authService.getcurrentUser();
+    List<UserData> userDataList = [];
+    final userprovider = Provider.of<UsereDataProvider>(context);
+    final userDataListRaw = Provider.of<List<UserData>?>(context);
+    userDataListRaw?.forEach((element) {
+      if (user.uid == element.id) {
+        userDataList.add(element);
+      } else {
+        return null;
+      }
+    });
+    UserData? userData;
     const padd = EdgeInsets.only(left: 28, right: 30, top: 8, bottom: 5);
     return Form(
       key: _formkey,
@@ -113,8 +126,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                             image: pickedFile != null
                                                 ? FileImage((File(
                                                     "${pickedFile!.path}")))
-                                                : NetworkImage(
-                                                        "${user.photoURL}")
+                                                : NetworkImage(userDataList
+                                                        .first.userimage)
                                                     as ImageProvider,
                                           )),
                                     ),
@@ -123,9 +136,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text(
-                                      "Name",
-                                      style: TextStyle(
+                                    Text(
+                                      user.displayName.toString(),
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
                                     const SizedBox(
@@ -139,7 +152,14 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                       height: 10,
                                     ),
                                     GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        userprovider.deleteUserData(user.uid);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const AuthMain()));
+                                      },
                                       child: const Text(
                                         "Remove",
                                         style: TextStyle(color: Colors.pink),
@@ -163,7 +183,10 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   height: 50,
                                   width: 325,
                                   child: TextFormField(
-                                    initialValue: user.displayName,
+                                    onChanged: (value) {
+                                      userprovider.changeName(value);
+                                    },
+                                    initialValue: userDataList.first.Name,
                                     obscureText: false,
                                     textInputAction: TextInputAction.next,
                                     keyboardType: TextInputType.name,
@@ -198,7 +221,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   height: 50,
                                   width: 325,
                                   child: TextFormField(
-                                    initialValue: user.email,
+                                    readOnly: true,
+                                    initialValue: userDataList.first.Email,
                                     obscureText: false,
                                     textInputAction: TextInputAction.next,
                                     keyboardType: TextInputType.emailAddress,
@@ -230,37 +254,68 @@ class _MyProfilePageState extends State<MyProfilePage> {
                             Padding(
                               padding: padd,
                               child: SizedBox(
-                                  height: 50,
-                                  width: 325,
-                                  child: TextFormField(
-                                    initialValue: user.phoneNumber,
-                                    textInputAction: TextInputAction.done,
-                                    keyboardType: TextInputType.phone,
-                                    cursorColor: Colors.grey,
-                                    style: const TextStyle(
-                                        color: Colors.black, fontSize: 17),
-                                    decoration: InputDecoration(
-                                      hintText:
-                                          user.phoneNumber ?? "Phone Number",
-                                      contentPadding: const EdgeInsets.only(
-                                          left: 8, top: 12),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Image.asset(
-                                          'assets/images/phonelist.png',
-                                          width: 20,
-                                          height: 20,
-                                          fit: BoxFit.fill,
-                                        ),
+                                height: 50,
+                                width: 325,
+                                child: TextFormField(
+                                  onChanged: ((value) {
+                                    userprovider.changephonenumber(value);
+                                  }),
+                                  initialValue:
+                                      userDataList.first.phoneNumber == "null"
+                                          ? null
+                                          : userDataList.first.phoneNumber,
+                                  textInputAction: TextInputAction.done,
+                                  keyboardType: TextInputType.phone,
+                                  cursorColor: Colors.grey,
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 17),
+                                  decoration: InputDecoration(
+                                    hintText:
+                                        user.phoneNumber ?? "Phone Number",
+                                    contentPadding:
+                                        const EdgeInsets.only(left: 8, top: 12),
+                                    prefixIcon: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Image.asset(
+                                        'assets/images/phonelist.png',
+                                        width: 20,
+                                        height: 20,
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
-                                  )),
+                                  ),
+                                ),
+                              ),
                             ),
                             const SizedBox(
                               height: 20,
                             ),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () async {
+                                setState(() {
+                                  showLoading = true;
+                                });
+                                progressIndicater(context, showLoading = true);
+                                if (pickedFile != null) {
+                                  final ref = FirebaseStorage.instance
+                                      .ref()
+                                      .child('profileImg')
+                                      .child(pickedFile!.name.toString());
+                                  await ref.putFile(imageFile);
+                                  String url = await ref.getDownloadURL();
+                                  userprovider.changeUserimage(url);
+                                  userprovider.updateProfileImg(user.uid);
+                                  user.reload();
+                                  userprovider.saveUserData();
+                                } else {}
+
+                                userprovider.saveUserData();
+                                setState(() {
+                                  showLoading = false;
+                                  pickedFile = null;
+                                });
+                                Navigator.pop(context);
+                              },
                               child: Center(
                                 child: Container(
                                   height: 50,
