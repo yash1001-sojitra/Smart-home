@@ -3,8 +3,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:smarthome/Logic/Modules/user_model.dart';
-import 'package:smarthome/Logic/Services/auth_services/auth_service.dart';
 import 'package:smarthome/Logic/Services/fireStoreServices/user_firestore_services.dart';
 import '../Modules/userData_model.dart';
 
@@ -66,25 +64,35 @@ class UsereDataProvider with ChangeNotifier {
     service.upadateProfileImg(_userimage, studentntID);
   }
 
-  // Future signInWithGoogle() async {
-  //   final FirebaseAuth auth = FirebaseAuth.instance;
-  //   final GoogleSignIn googleSignIn = GoogleSignIn();
-  //   final GoogleSignInAccount? googleSignInAccount =
-  //       await googleSignIn.signIn();
+  Future signInWithGoogle() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
-  //   final User? user = auth.currentUser;
-  //   final uid = user!.uid;
-  //   _id = uid;
-  //   _Name = googleSignInAccount!.displayName.toString();
-  //   _email = googleSignInAccount.email;
-  //   _phonenumber = "";
-  //   _userimage = googleSignInAccount.photoUrl.toString();
-  //   changeId(_id);
-  //   changeEmail(_email);
-  //   changeName(_Name);
-  //   changeUserimage(_userimage);
-  //   changephonenumber(_phonenumber);
-  //   saveUserData();
-  //   notifyListeners();
-  // }
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+        user = userCredential.user;
+        changeId(user!.uid);
+        changeEmail(user.email.toString());
+        changeName(user.displayName.toString());
+        changeUserimage(user.photoURL.toString());
+        changephonenumber(user.phoneNumber.toString());
+        saveUserData();
+        notifyListeners();
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+        } else if (e.code == 'invalid-credential') {}
+      } catch (e) {}
+    }
+  }
 }

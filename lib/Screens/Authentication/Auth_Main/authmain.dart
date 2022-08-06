@@ -32,8 +32,7 @@ class _AuthMainState extends State<AuthMain> {
   @override
   Widget build(BuildContext context) {
     authService = Provider.of<AuthService>(context);
-    final userDataListRaw = Provider.of<List<UserData>?>(context);
-    final userprovider = Provider.of<List<UsereDataProvider>?>(context);
+
     return Form(
       key: _formkey,
       child: Stack(
@@ -148,8 +147,8 @@ class _AuthMainState extends State<AuthMain> {
                         GestureDetector(
                           onTap: () async {
                             // signupwithgoogle(context);
-                            Authentication.signInWithGoogle(context: context);
-                            // UsereDataProvider().signInWithGoogle();
+                            // Authentication.signInWithGoogle(context: context);
+                            UsereDataProvider().signInWithGoogle();
                             Navigator.pushNamed(context, homepageScreenRoute);
                             // handleGoogleSignIn();
                           },
