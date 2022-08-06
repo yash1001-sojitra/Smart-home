@@ -29,8 +29,8 @@ class UserDataFirestoreService {
     return userdata;
   }
 
-  Future<void> upadateProfileImg(String url, String studentntID) {
-    return _db.collection('User').doc(studentntID).set(
+  Future<void> upadateProfileImg(String url, String ID) {
+    return _db.collection('User').doc(ID).set(
       {'UserImage': url},
       SetOptions(
         merge: true,

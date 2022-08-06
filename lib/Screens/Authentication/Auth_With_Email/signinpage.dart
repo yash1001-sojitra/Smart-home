@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Core/Constant/textcontroller.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
@@ -318,6 +318,15 @@ class _SignInpageState extends State<SignInpage> {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
+    GoogleSignInAuthentication? googleAuth =
+        await googleSignIn.currentUser!.authentication;
+    AuthCredential myCredential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    UserCredential user =
+        await FirebaseAuth.instance.signInWithCredential(myCredential);
+
     if (googleSignInAccount != null) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const Homepage()));

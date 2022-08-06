@@ -1,11 +1,15 @@
-// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages, invalid_use_of_visible_for_testing_member
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Logic/Services/auth_services/auth_service.dart';
+import 'package:smarthome/Screens/auth/google_sign_in.dart';
+import '../../../Logic/Modules/userData_model.dart';
+import '../../../Logic/Providers/userData_provider.dart';
 import '../../Splash/splashscreen.dart';
 import '../../User/Homepage/homepage.dart';
 
@@ -17,6 +21,8 @@ class AuthMain extends StatefulWidget {
 }
 
 class _AuthMainState extends State<AuthMain> {
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
   late AuthService authService;
   bool showLoading = false;
   bool showAlert = false;
@@ -26,7 +32,8 @@ class _AuthMainState extends State<AuthMain> {
   @override
   Widget build(BuildContext context) {
     authService = Provider.of<AuthService>(context);
-
+    final userDataListRaw = Provider.of<List<UserData>?>(context);
+    final userprovider = Provider.of<List<UsereDataProvider>?>(context);
     return Form(
       key: _formkey,
       child: Stack(
@@ -139,8 +146,11 @@ class _AuthMainState extends State<AuthMain> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            signupwithgoogle(context);
+                          onTap: () async {
+                            // signupwithgoogle(context);
+                            Authentication.signInWithGoogle(context: context);
+                            // UsereDataProvider().signInWithGoogle();
+                            Navigator.pushNamed(context, homepageScreenRoute);
                             // handleGoogleSignIn();
                           },
                           child: Container(

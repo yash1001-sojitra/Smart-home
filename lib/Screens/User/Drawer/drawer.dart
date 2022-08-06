@@ -109,7 +109,8 @@ class MyDrawer extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  auth.signOut();
+                  // auth.signOut();
+                  FirebaseAuth.instance.signOut();
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
