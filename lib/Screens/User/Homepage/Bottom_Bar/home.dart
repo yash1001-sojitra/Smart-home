@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarthome/Core/Constant/string.dart';
+import 'package:smarthome/Screens/User/Drawer/DrawerScreens/profile.dart';
 import '../../../../Logic/Modules/userData_model.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -51,7 +52,14 @@ class _HomeDashState extends State<HomeDash> {
         toolbarHeight: 70,
         automaticallyImplyLeading: false,
         leading: GestureDetector(
-          onTap: (() {}),
+          onTap: (() {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MyProfilePage(),
+              ),
+            );
+          }),
           child: Padding(
             padding: const EdgeInsets.only(left: 8),
             child: WidgetCircularAnimator(

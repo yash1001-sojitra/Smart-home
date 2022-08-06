@@ -14,7 +14,6 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const style = TextStyle(fontSize: 24);
-    final auth = FirebaseAuth.instance;
     return SizedBox(
       width: MediaQuery.of(context).size.width / 1.25,
       child: Drawer(

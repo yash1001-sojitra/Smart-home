@@ -3,11 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smarthome/Core/Constant/string.dart';
-import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 import '../../../Logic/Providers/userData_provider.dart';
 import '../../Splash/splashscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class ForgotPass extends StatefulWidget {
   const ForgotPass({Key? key}) : super(key: key);

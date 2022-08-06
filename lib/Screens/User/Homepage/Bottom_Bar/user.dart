@@ -17,17 +17,6 @@ class UserDash extends StatefulWidget {
 }
 
 class _UserDashState extends State<UserDash> {
-  // Future getData() async {
-  //   final sp = context.read<SignInProvider>();
-  //   sp.getDataFromSharedPreferences();
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getData();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);

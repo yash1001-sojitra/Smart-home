@@ -1,18 +1,14 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Core/Constant/textcontroller.dart';
-import 'package:smarthome/Screens/User/Homepage/homepage.dart';
-
 import '../../../Logic/Providers/userData_provider.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
 import '../../Splash/splashscreen.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInpage extends StatefulWidget {
   const SignInpage({Key? key}) : super(key: key);

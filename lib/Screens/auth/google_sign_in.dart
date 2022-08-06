@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -17,9 +19,7 @@ class Authentication {
             await auth.signInWithPopup(authProvider);
 
         user = userCredential.user;
-      } catch (e) {
-        print(e);
-      }
+      } catch (e) {}
     } else {
       final GoogleSignIn googleSignIn = GoogleSignIn();
 

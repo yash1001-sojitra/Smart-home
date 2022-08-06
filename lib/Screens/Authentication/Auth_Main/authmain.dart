@@ -1,15 +1,12 @@
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages, invalid_use_of_visible_for_testing_member
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Logic/Services/auth_services/auth_service.dart';
 import '../../../Logic/Providers/userData_provider.dart';
 import '../../Splash/splashscreen.dart';
-import '../../User/Homepage/homepage.dart';
 
 class AuthMain extends StatefulWidget {
   const AuthMain({Key? key}) : super(key: key);

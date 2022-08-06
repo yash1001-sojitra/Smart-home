@@ -1,11 +1,9 @@
 // ignore_for_file: depend_on_referenced_packages, use_build_context_synchronously
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:smarthome/Core/Constant/string.dart';
-import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 import '../../../Logic/Providers/userData_provider.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
 import '../../../Logic/helper/helper.dart';

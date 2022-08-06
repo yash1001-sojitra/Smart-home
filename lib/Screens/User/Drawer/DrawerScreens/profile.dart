@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
-
-import '../../../../Core/Constant/textcontroller.dart';
 import '../../../../Logic/Modules/userData_model.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import '../../../Splash/splashscreen.dart';
@@ -110,13 +108,13 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                       width: 110,
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(20),
                                           image: DecorationImage(
                                             image: pickedFile != null
                                                 ? FileImage((File(
                                                     "${pickedFile!.path}")))
-                                                : const AssetImage(
-                                                        "assets/images/profileimage.png")
+                                                : NetworkImage(
+                                                        "${user.photoURL}")
                                                     as ImageProvider,
                                           )),
                                     ),
@@ -165,9 +163,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   height: 50,
                                   width: 325,
                                   child: TextFormField(
-                                    // initialValue: "yash",
+                                    initialValue: user.displayName,
                                     obscureText: false,
-                                    controller: nameController,
                                     textInputAction: TextInputAction.next,
                                     keyboardType: TextInputType.name,
                                     cursorColor: Colors.grey,
@@ -201,9 +198,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   height: 50,
                                   width: 325,
                                   child: TextFormField(
-                                    // initialValue: "yash",
+                                    initialValue: user.email,
                                     obscureText: false,
-                                    controller: emailController,
                                     textInputAction: TextInputAction.next,
                                     keyboardType: TextInputType.emailAddress,
                                     cursorColor: Colors.grey,
@@ -237,22 +233,15 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   height: 50,
                                   width: 325,
                                   child: TextFormField(
-                                    // initialValue: "yash",
-                                    validator: (value) {
-                                      if (value!.length < 10 ||
-                                          value.length > 10) {
-                                        // print("enter valid phonenumber");
-                                      }
-                                      return null;
-                                    },
-                                    obscureText: false,
-                                    controller: phonenumberController,
+                                    initialValue: user.phoneNumber,
                                     textInputAction: TextInputAction.done,
                                     keyboardType: TextInputType.phone,
                                     cursorColor: Colors.grey,
                                     style: const TextStyle(
                                         color: Colors.black, fontSize: 17),
                                     decoration: InputDecoration(
+                                      hintText:
+                                          user.phoneNumber ?? "Phone Number",
                                       contentPadding: const EdgeInsets.only(
                                           left: 8, top: 12),
                                       prefixIcon: Padding(

@@ -49,7 +49,7 @@ class UsereDataProvider with ChangeNotifier {
     var userData = UserData(
         email: getEmail,
         Name: getName,
-        phonenumber: getphonenumber,
+        phoneNumber: getphonenumber,
         id: getId,
         userimage: getUserimage.isEmpty ? '' : getUserimage,
         time: _time);
