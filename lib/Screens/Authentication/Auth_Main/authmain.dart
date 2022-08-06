@@ -7,8 +7,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Logic/Services/auth_services/auth_service.dart';
-import 'package:smarthome/Screens/auth/google_sign_in.dart';
-import '../../../Logic/Modules/userData_model.dart';
 import '../../../Logic/Providers/userData_provider.dart';
 import '../../Splash/splashscreen.dart';
 import '../../User/Homepage/homepage.dart';
@@ -21,8 +19,8 @@ class AuthMain extends StatefulWidget {
 }
 
 class _AuthMainState extends State<AuthMain> {
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  // final GoogleSignIn googleSignIn = GoogleSignIn();
   late AuthService authService;
   bool showLoading = false;
   bool showAlert = false;
@@ -146,11 +144,8 @@ class _AuthMainState extends State<AuthMain> {
                       children: [
                         GestureDetector(
                           onTap: () async {
-                            // signupwithgoogle(context);
-                            // Authentication.signInWithGoogle(context: context);
                             UsereDataProvider().signInWithGoogle();
                             Navigator.pushNamed(context, homepageScreenRoute);
-                            // handleGoogleSignIn();
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
@@ -209,13 +204,13 @@ class _AuthMainState extends State<AuthMain> {
     );
   }
 
-  Future<void> signupwithgoogle(BuildContext context) async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
-    if (googleSignInAccount != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Homepage()));
-    }
-  }
+  // Future<void> signupwithgoogle(BuildContext context) async {
+  //   final GoogleSignIn googleSignIn = GoogleSignIn();
+  //   final GoogleSignInAccount? googleSignInAccount =
+  //       await googleSignIn.signIn();
+  //   if (googleSignInAccount != null) {
+  //     Navigator.pushReplacement(
+  //         context, MaterialPageRoute(builder: (context) => const Homepage()));
+  //   }
+  // }
 }

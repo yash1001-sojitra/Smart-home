@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
+import '../../../Logic/Providers/userData_provider.dart';
 import '../../Splash/splashscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -150,8 +151,9 @@ class _ForgotPassState extends State<ForgotPass> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            signupwithgoogle(context);
+                          onTap: () async {
+                            UsereDataProvider().signInWithGoogle();
+                            Navigator.pushNamed(context, homepageScreenRoute);
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
@@ -207,17 +209,17 @@ class _ForgotPassState extends State<ForgotPass> {
     );
   }
 
-  Future<void> signupwithgoogle(BuildContext context) async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
-    if (googleSignInAccount != null) {
-      // Getting users credential
+  // Future<void> signupwithgoogle(BuildContext context) async {
+  //   final GoogleSignIn googleSignIn = GoogleSignIn();
+  //   final GoogleSignInAccount? googleSignInAccount =
+  //       await googleSignIn.signIn();
+  //   if (googleSignInAccount != null) {
+  //     // Getting users credential
 
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Homepage()));
-    }
-  }
+  //     Navigator.pushReplacement(
+  //         context, MaterialPageRoute(builder: (context) => const Homepage()));
+  //   }
+  // }
 
   Future<void> signupwithfacebook(BuildContext context) async {}
 }

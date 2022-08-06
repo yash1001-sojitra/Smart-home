@@ -62,13 +62,10 @@ class _HomeDashState extends State<HomeDash> {
                 radius: 25,
                 backgroundColor: Colors.grey,
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"),
-                  // userDataList == 0
-                  //     ? const NetworkImage(
-                  //         "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png")
-                  //     : NetworkImage(userDataList.first.userimage
-                  // ),
+                  backgroundImage: userDataList == 0
+                      ? const NetworkImage(
+                          "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png")
+                      : NetworkImage(userDataList.first.userimage),
                   radius: 70,
                 ),
               ),
@@ -102,8 +99,7 @@ class _HomeDashState extends State<HomeDash> {
               children: [
                 const Text("Hello, ", style: TextStyle(fontSize: 25)),
                 Text(
-                  " name",
-                  // "${userDataList.first.Name}!",
+                  "${userDataList.first.Name}!",
                   style: const TextStyle(
                       fontSize: 25, fontWeight: FontWeight.w600),
                 )

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
+import '../../../Logic/Providers/userData_provider.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
 import '../../../Logic/helper/helper.dart';
 import '../../Splash/splashscreen.dart';
@@ -236,9 +237,9 @@ class _NumberAuthState extends State<NumberAuth> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            // handleGoogleSignIn();
-                            signupwithgoogle(context);
+                          onTap: () async {
+                            UsereDataProvider().signInWithGoogle();
+                            Navigator.pushNamed(context, homepageScreenRoute);
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
@@ -329,15 +330,15 @@ class _NumberAuthState extends State<NumberAuth> {
   //   }
   // }
 
-  Future<void> signupwithgoogle(BuildContext context) async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
-    if (googleSignInAccount != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Homepage()));
-    }
-  }
+  // Future<void> signupwithgoogle(BuildContext context) async {
+  //   final GoogleSignIn googleSignIn = GoogleSignIn();
+  //   final GoogleSignInAccount? googleSignInAccount =
+  //       await googleSignIn.signIn();
+  //   if (googleSignInAccount != null) {
+  //     Navigator.pushReplacement(
+  //         context, MaterialPageRoute(builder: (context) => const Homepage()));
+  //   }
+  // }
 
   Future<void> alertBox(BuildContext context, e) {
     setState(() {

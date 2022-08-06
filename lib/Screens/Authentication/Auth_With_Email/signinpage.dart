@@ -9,6 +9,7 @@ import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Core/Constant/textcontroller.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 
+import '../../../Logic/Providers/userData_provider.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
 import '../../Splash/splashscreen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -26,13 +27,6 @@ class _SignInpageState extends State<SignInpage> {
   bool showAlert = false;
   bool ispasswordvisible = true;
   final _formkey = GlobalKey<FormState>();
-
-  // final RoundedLoadingButtonController googleController =
-  //     RoundedLoadingButtonController();
-  // final RoundedLoadingButtonController facebookController =
-  //     RoundedLoadingButtonController();
-  // final RoundedLoadingButtonController phoneController =
-  //     RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -230,9 +224,9 @@ class _SignInpageState extends State<SignInpage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            // handleGoogleSignIn();
-                            signupwithgoogle(context);
+                          onTap: () async {
+                            UsereDataProvider().signInWithGoogle();
+                            Navigator.pushNamed(context, homepageScreenRoute);
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
@@ -314,24 +308,24 @@ class _SignInpageState extends State<SignInpage> {
     }
   }
 
-  Future<void> signupwithgoogle(BuildContext context) async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
-    GoogleSignInAuthentication? googleAuth =
-        await googleSignIn.currentUser!.authentication;
-    AuthCredential myCredential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    UserCredential user =
-        await FirebaseAuth.instance.signInWithCredential(myCredential);
+  // Future<void> signupwithgoogle(BuildContext context) async {
+  //   final GoogleSignIn googleSignIn = GoogleSignIn();
+  //   final GoogleSignInAccount? googleSignInAccount =
+  //       await googleSignIn.signIn();
+  //   GoogleSignInAuthentication? googleAuth =
+  //       await googleSignIn.currentUser!.authentication;
+  //   AuthCredential myCredential = GoogleAuthProvider.credential(
+  //     accessToken: googleAuth.accessToken,
+  //     idToken: googleAuth.idToken,
+  //   );
+  //   UserCredential user =
+  //       await FirebaseAuth.instance.signInWithCredential(myCredential);
 
-    if (googleSignInAccount != null) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Homepage()));
-    }
-  }
+  //   if (googleSignInAccount != null) {
+  //     Navigator.pushReplacement(
+  //         context, MaterialPageRoute(builder: (context) => const Homepage()));
+  //   }
+  // }
 
   Future<void> signupwithfacebook(BuildContext context) async {}
 
