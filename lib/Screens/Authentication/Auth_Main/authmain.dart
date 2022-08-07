@@ -141,7 +141,7 @@ class _AuthMainState extends State<AuthMain> {
                       children: [
                         GestureDetector(
                           onTap: () async {
-                            UsereDataProvider().signInWithGoogle();
+                           await UsereDataProvider().signInWithGoogle();
                             Navigator.pushNamed(context, homepageScreenRoute);
                           },
                           child: Container(
