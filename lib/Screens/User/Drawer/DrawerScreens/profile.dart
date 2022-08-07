@@ -137,7 +137,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      user.displayName.toString(),
+                                      userDataList.first.Name,
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
