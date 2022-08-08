@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, unused_local_variable
 
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -150,42 +151,6 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                             const Padding(
                               padding: EdgeInsets.only(left: 28.0, top: 10),
                               child: Text(
-                                "Name",
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                            Padding(
-                              padding: padd,
-                              child: SizedBox(
-                                  height: 50,
-                                  width: 325,
-                                  child: TextFormField(
-                                    // initialValue: "yash",
-                                    obscureText: false,
-                                    controller: nameController,
-                                    textInputAction: TextInputAction.next,
-                                    keyboardType: TextInputType.name,
-                                    cursorColor: Colors.grey,
-                                    style: const TextStyle(
-                                        color: Colors.black, fontSize: 17),
-                                    decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.only(
-                                          left: 8, top: 12),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Image.asset(
-                                          'assets/images/userimages.png',
-                                          width: 20,
-                                          height: 20,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                  )),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 28.0, top: 10),
-                              child: Text(
                                 "Email",
                                 style: TextStyle(color: Colors.grey),
                               ),
@@ -219,6 +184,34 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                                     ),
                                   )),
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: const [
+                                Expanded(
+                                  child: Divider(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  " OR",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Divider(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             const Padding(
                               padding: EdgeInsets.only(left: 28.0, top: 10),
                               child: Text(
@@ -232,7 +225,9 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                                   height: 50,
                                   width: 325,
                                   child: TextFormField(
-                                    // initialValue: "yash",
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     validator: (value) {
                                       if (value!.length < 10 ||
                                           value.length > 10) {

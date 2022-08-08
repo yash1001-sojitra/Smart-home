@@ -14,7 +14,8 @@ class MusicViewModel extends StatefulWidget {
 
 class _MusicViewModelState extends State<MusicViewModel>
     with SingleTickerProviderStateMixin {
-  late final AnimationController animationController;
+  late final AnimationController animationController =
+      AnimationController(vsync: this, duration: Duration(seconds: 7));
   double initval = 0;
   bool isplay = false;
   bool isPlayerconnected = false;
@@ -22,13 +23,7 @@ class _MusicViewModelState extends State<MusicViewModel>
   @override
   void initState() {
     super.initState();
-    isplay = false;
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 7),
-    );
-
-    animationController.repeat();
+    isplay = true;
   }
 
   @override
