@@ -6,6 +6,7 @@ class UserData {
   String Email;
   String phoneNumber;
   String userimage;
+  List otheruser;
   DateTime time;
   UserData(
       {required this.id,
@@ -13,6 +14,7 @@ class UserData {
       required this.Email,
       required this.phoneNumber,
       required this.userimage,
+      required this.otheruser,
       required this.time});
 
   Map<String, dynamic> createMap() {
@@ -22,6 +24,7 @@ class UserData {
       'Email': Email,
       'PhoneNumber': phoneNumber,
       'UserImage': userimage,
+      'OtherUser': otheruser,
       'time': time,
     };
   }
@@ -32,5 +35,6 @@ class UserData {
         Email = firestoreMap['Email'],
         phoneNumber = firestoreMap['PhoneNumber'],
         userimage = firestoreMap['UserImage'],
+        otheruser = firestoreMap['OtherUser'],
         time = firestoreMap['time'].toDate();
 }

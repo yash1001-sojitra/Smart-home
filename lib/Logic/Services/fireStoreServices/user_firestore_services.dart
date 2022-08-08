@@ -41,4 +41,16 @@ class UserDataFirestoreService {
   Future<void> removeUser(String userId) {
     return _db.collection('User').doc(userId).delete();
   }
+
+  Future<void> addotheruser(String userId, String otherId) {
+    return _db.collection('User').doc(userId).update({
+      'OtherUser': FieldValue.arrayUnion([otherId])
+    });
+  }
+
+  Future<void> removeotheruser(String userId, String otherId) {
+    return _db.collection('User').doc(userId).update({
+      'OtherUser': FieldValue.arrayRemove([otherId])
+    });
+  }
 }

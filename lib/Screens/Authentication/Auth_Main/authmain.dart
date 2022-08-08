@@ -16,8 +16,6 @@ class AuthMain extends StatefulWidget {
 }
 
 class _AuthMainState extends State<AuthMain> {
-  // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  // final GoogleSignIn googleSignIn = GoogleSignIn();
   late AuthService authService;
   bool showLoading = false;
   bool showAlert = false;
@@ -141,7 +139,7 @@ class _AuthMainState extends State<AuthMain> {
                       children: [
                         GestureDetector(
                           onTap: () async {
-                            UsereDataProvider().signInWithGoogle();
+                            await UsereDataProvider().signInWithGoogle();
                             Navigator.pushNamed(context, homepageScreenRoute);
                           },
                           child: Container(

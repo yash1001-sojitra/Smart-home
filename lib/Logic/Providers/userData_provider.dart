@@ -45,6 +45,14 @@ class UsereDataProvider with ChangeNotifier {
     _userimage = value;
   }
 
+  void addotheruser(userId, otherId) {
+    service.addotheruser(userId, otherId);
+  }
+
+  void removeotheruser(userId, otherId) {
+    service.removeotheruser(userId, otherId);
+  }
+
   void saveUserData() {
     var userData = UserData(
         Email: getEmail,
@@ -52,6 +60,7 @@ class UsereDataProvider with ChangeNotifier {
         phoneNumber: getphonenumber,
         id: getId,
         userimage: getUserimage.isEmpty ? '' : getUserimage,
+        otheruser: [],
         time: _time);
     service.saveUser(userData);
   }
