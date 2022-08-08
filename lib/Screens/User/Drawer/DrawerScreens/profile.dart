@@ -222,6 +222,10 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   width: 325,
                                   child: TextFormField(
                                     readOnly: true,
+                                    onChanged: ((value) {
+                                      user.updateEmail(value);
+                                      userprovider.changeEmail(value);
+                                    }),
                                     initialValue: userDataList.first.Email,
                                     obscureText: false,
                                     textInputAction: TextInputAction.next,
@@ -261,17 +265,16 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                     userprovider.changephonenumber(value);
                                   }),
                                   initialValue:
-                                      userDataList.first.phoneNumber == "null"
-                                          ? null
-                                          : userDataList.first.phoneNumber,
+                                      userDataList.first.phoneNumber != "null"
+                                          ? userDataList.first.phoneNumber
+                                          : "Phone Number",
                                   textInputAction: TextInputAction.done,
                                   keyboardType: TextInputType.phone,
                                   cursorColor: Colors.grey,
                                   style: const TextStyle(
                                       color: Colors.black, fontSize: 17),
                                   decoration: InputDecoration(
-                                    hintText:
-                                        user.phoneNumber ?? "Phone Number",
+                                    hintText: "Phone Number",
                                     contentPadding:
                                         const EdgeInsets.only(left: 8, top: 12),
                                     prefixIcon: Padding(
@@ -305,11 +308,10 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   String url = await ref.getDownloadURL();
                                   userprovider.changeUserimage(url);
                                   userprovider.updateProfileImg(user.uid);
-                                  user.reload();
+                                } else {
                                   userprovider.saveUserData();
-                                } else {}
+                                }
 
-                                userprovider.saveUserData();
                                 setState(() {
                                   showLoading = false;
                                   pickedFile = null;

@@ -22,6 +22,7 @@ class _MusicViewModelState extends State<MusicViewModel>
   @override
   void initState() {
     super.initState();
+    isplay = false;
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 7),

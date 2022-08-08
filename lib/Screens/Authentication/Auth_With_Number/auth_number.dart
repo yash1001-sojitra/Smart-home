@@ -289,55 +289,6 @@ class _NumberAuthState extends State<NumberAuth> {
     }
   }
 
-  // Future handleGoogleSignIn() async {
-  //   final sp = context.read<SignInProvider>();
-  //   final ip = context.read<InternetProvider>();
-  //   await ip.checkInternetConnection();
-
-  //   if (ip.hasInternet == false) {
-  //     openSnackbar(context, "Check your Internet connection", Colors.red);
-  //     googleController.reset();
-  //   } else {
-  //     await sp.signInWithGoogle().then((value) {
-  //       if (sp.hasError == true) {
-  //         openSnackbar(context, sp.errorCode.toString(), Colors.red);
-  //         googleController.reset();
-  //       } else {
-  //         // checking whether user exists or not
-  //         sp.checkUserExists().then((value) async {
-  //           if (value == true) {
-  //             // user exists
-  //             await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
-  //                 .saveDataToSharedPreferences()
-  //                 .then((value) => sp.setSignIn().then((value) {
-  //                       googleController.success();
-  //                       Navigator.pushNamed(context, homepageScreenRoute);
-  //                     })));
-  //           } else {
-  //             // user does not exist
-  //             sp.saveDataToFirestore().then((value) => sp
-  //                 .saveDataToSharedPreferences()
-  //                 .then((value) => sp.setSignIn().then((value) {
-  //                       googleController.success();
-  //                       Navigator.pushNamed(context, homepageScreenRoute);
-  //                     })));
-  //           }
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
-
-  // Future<void> signupwithgoogle(BuildContext context) async {
-  //   final GoogleSignIn googleSignIn = GoogleSignIn();
-  //   final GoogleSignInAccount? googleSignInAccount =
-  //       await googleSignIn.signIn();
-  //   if (googleSignInAccount != null) {
-  //     Navigator.pushReplacement(
-  //         context, MaterialPageRoute(builder: (context) => const Homepage()));
-  //   }
-  // }
-
   Future<void> alertBox(BuildContext context, e) {
     setState(() {
       showLoading = false;
