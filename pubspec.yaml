@@ -66,6 +66,7 @@ dependencies:
   #googlefont, animaltion, alert, fontawsome
   google_fonts: ^2.2.0
   lottie: ^1.2.1
+  awesome_snackbar_content: ^0.0.8
   rflutter_alert: 
   font_awesome_flutter: ^10.1.0
   favorite_button: ^0.0.4
@@ -77,6 +78,7 @@ dependencies:
 
   #wireless connection --> bluetooth
   flutter_blue: ^0.8.0
+
 
   # music player
   

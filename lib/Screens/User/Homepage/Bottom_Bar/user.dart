@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarthome/Core/Constant/string.dart';
+import 'package:smarthome/Logic/Providers/userData_provider.dart';
 import '../../../../Logic/Modules/userData_model.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,6 +31,12 @@ class _UserDashState extends State<UserDash> {
       } else {
         return null;
       }
+    });
+    List<UserData> otheruserdata = [];
+    userDataListRaw?.forEach((element) {
+      // if () {
+      //   otheruserdata.add(element);
+      // }
     });
 
     return Scaffold(
@@ -119,11 +126,12 @@ class _UserDashState extends State<UserDash> {
             SizedBox(
               height: 380,
               child: ListView.builder(
-                itemCount: 3,
+                itemCount: otheruserdata.length,
                 itemBuilder: (BuildContext context, int index) {
                   return UserListModel(
-                    name: userDataList.first.Name,
-                    src: userDataList.first.userimage,
+                    name: otheruserdata[index].Name,
+                    src: otheruserdata[index].userimage,
+                    otheruserid: otheruserdata[index].id,
                   );
                 },
               ),
@@ -169,13 +177,28 @@ class _UserDashState extends State<UserDash> {
   }
 }
 
-class UserListModel extends StatelessWidget {
-  UserListModel({required this.name, required this.src, Key? key})
+class UserListModel extends StatefulWidget {
+  UserListModel(
+      {required this.name,
+      required this.src,
+      required this.otheruserid,
+      Key? key})
       : super(key: key);
-  String src;
   String name;
+  String src;
+  String otheruserid;
+
+  @override
+  State<UserListModel> createState() => _UserListModelState();
+}
+
+class _UserListModelState extends State<UserListModel> {
+  get otheruserid => null;
+
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+    User user = authService.getcurrentUser();
     return Padding(
       padding: const EdgeInsets.only(bottom: 5.0),
       child: Card(
@@ -191,7 +214,7 @@ class UserListModel extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                        image: NetworkImage(src),
+                        image: NetworkImage(widget.src),
                       )),
                 ),
               ),
@@ -202,7 +225,7 @@ class UserListModel extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    widget.name,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
@@ -216,7 +239,10 @@ class UserListModel extends StatelessWidget {
                     height: 20,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      UsereDataProvider()
+                          .removeotheruser(user.uid, otheruserid);
+                    },
                     child: const Text(
                       "Remove",
                       style: TextStyle(color: Colors.pink),

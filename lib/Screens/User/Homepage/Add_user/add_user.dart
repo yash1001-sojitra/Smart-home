@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages, unused_local_variable
 
 import 'dart:io';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:smarthome/Logic/Providers/userData_provider.dart';
-
+import 'package:smarthome/Logic/helper/helper.dart';
 import '../../../../Core/Constant/textcontroller.dart';
 import '../../../../Logic/Modules/userData_model.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
@@ -27,14 +28,6 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
   PlatformFile? pickedFile;
   bool showLoading = false;
 
-  void _saveForm() {
-    final isValid = _formkey.currentState?.validate();
-
-    if (!isValid!) {
-      return;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     String useremail = "";
@@ -44,7 +37,10 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
     List<UserData> userDataList = [];
     final userDataListRaw = Provider.of<List<UserData>?>(context);
     userDataListRaw?.forEach((element) {
-      userDataList.add(element);
+      if (user.uid == element.id) {
+      } else {
+        userDataList.add(element);
+      }
     });
 
     const padd = EdgeInsets.only(left: 28, right: 30, top: 8, bottom: 5);
@@ -177,9 +173,10 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                                   height: 50,
                                   width: 325,
                                   child: TextFormField(
+                                    onChanged: ((value) {}),
                                     // initialValue: "yash",
                                     obscureText: false,
-                                    controller: emailController,
+                                    controller: adduseremailController,
                                     textInputAction: TextInputAction.next,
                                     keyboardType: TextInputType.emailAddress,
                                     cursorColor: Colors.grey,
@@ -244,16 +241,9 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                                     inputFormatters: [
                                       FilteringTextInputFormatter.digitsOnly
                                     ],
-                                    validator: (value) {
-                                      if (value!.length < 10 ||
-                                          value.length > 10) {
-                                        return "Please Enter Valid PhoneNumber";
-                                      }
-
-                                      return null;
-                                    },
+                                    validator: (value) {},
                                     obscureText: false,
-                                    controller: phonenumberController,
+                                    controller: adduserphonenumberController,
                                     textInputAction: TextInputAction.done,
                                     keyboardType: TextInputType.phone,
                                     cursorColor: Colors.grey,
@@ -280,24 +270,40 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                             GestureDetector(
                               onTap: () async {
                                 // _saveForm();
+
                                 setState(() {
                                   showLoading = true;
                                 });
                                 progressIndicater(context, showLoading = true);
                                 for (int i = 0; i < userDataList.length; i++) {
                                   var element = userDataList[i];
+
                                   if (element.Email ==
-                                      emailController.text.toString()) {
+                                          adduseremailController.text
+                                              .toString() ||
+                                      element.phoneNumber ==
+                                          adduserphonenumberController.text
+                                              .toString()) {
                                     UsereDataProvider()
                                         .addotheruser(user.uid, element.id);
                                     continue;
+                                  } else if (adduseremailController
+                                          .text.isEmpty &&
+                                      adduserphonenumberController
+                                          .text.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        animationsnackbar("ADD USER",
+                                            "Please Enter Any One of Them"));
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        animationsnackbar("ADD USER",
+                                            "Please Enter Valid User Details"));
                                   }
                                 }
                                 setState(() {
                                   showLoading = false;
+                                  Navigator.pop(context);
                                 });
-                                Navigator.pop(context);
-                                Navigator.pop(context);
                               },
                               child: Center(
                                 child: Container(
@@ -343,6 +349,8 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
       ),
     );
   }
+
+
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles();
