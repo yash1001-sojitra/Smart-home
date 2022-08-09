@@ -69,8 +69,16 @@ class UsereDataProvider with ChangeNotifier {
     service.removeUser(userId);
   }
 
-  void updateProfileImg(studentntID) {
-    service.upadateProfileImg(_userimage, studentntID);
+  void updateProfileImg(userID) {
+    service.upadateProfileImg(_userimage, userID);
+  }
+
+  void upadateusername(userID) {
+    service.upadateusername(_Name, userID);
+  }
+
+  void upadatuserphonenumber(userID) {
+    service.upadateuserphonenumber(_phonenumber, userID);
   }
 
   Future signInWithGoogle() async {
@@ -96,13 +104,16 @@ class UsereDataProvider with ChangeNotifier {
         String name = user.displayName.toString();
         String photourl = user.photoURL.toString();
         String phonenumber = user.phoneNumber.toString();
-
-        changeId(userid);
-        changeEmail(email);
-        changeName(name);
-        changeUserimage(photourl);
-        changephonenumber(phonenumber);
-        saveUserData();
+        String userdbid = UsereDataProvider().getId;
+        if (userdbid == userid) {
+        } else {
+          changeId(userid);
+          changeEmail(email);
+          changeName(name);
+          changeUserimage(photourl);
+          changephonenumber(phonenumber);
+          saveUserData();
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
         } else if (e.code == 'invalid-credential') {}

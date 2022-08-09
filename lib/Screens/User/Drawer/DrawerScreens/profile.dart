@@ -184,6 +184,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   width: 325,
                                   child: TextFormField(
                                     onChanged: (value) {
+                                      // userprovider.changeName(value);
                                       userprovider.changeName(value);
                                     },
                                     initialValue: userDataList.first.Name,
@@ -308,9 +309,11 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   String url = await ref.getDownloadURL();
                                   userprovider.changeUserimage(url);
                                   userprovider.updateProfileImg(user.uid);
-                                  userprovider.saveUserData();
+                                  userprovider.upadateusername(user.uid);
+                                  userprovider.upadatuserphonenumber(user.uid);
                                 } else {
-                                  userprovider.saveUserData();
+                                  userprovider.upadateusername(user.uid);
+                                  userprovider.upadatuserphonenumber(user.uid);
                                 }
 
                                 setState(() {

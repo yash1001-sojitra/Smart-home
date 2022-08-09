@@ -38,6 +38,24 @@ class UserDataFirestoreService {
     );
   }
 
+  Future<void> upadateusername(String name, String ID) {
+    return _db.collection('User').doc(ID).set(
+      {'Name': name},
+      SetOptions(
+        merge: true,
+      ),
+    );
+  }
+
+  Future<void> upadateuserphonenumber(String phonenumber, String ID) {
+    return _db.collection('User').doc(ID).set(
+      {'PhoneNumber': phonenumber},
+      SetOptions(
+        merge: true,
+      ),
+    );
+  }
+
   Future<void> removeUser(String userId) {
     return _db.collection('User').doc(userId).delete();
   }
