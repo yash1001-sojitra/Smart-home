@@ -1,11 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../Authentication/Auth_Main/authmain.dart';
 
-class SettingDash extends StatelessWidget {
+class SettingDash extends StatefulWidget {
   const SettingDash({Key? key}) : super(key: key);
 
+  @override
+  State<SettingDash> createState() => _SettingDashState();
+}
+
+class _SettingDashState extends State<SettingDash> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +21,7 @@ class SettingDash extends StatelessWidget {
         leading: GestureDetector(
             child: const Icon(Icons.signpost_outlined),
             onTap: () {
-              FirebaseAuth.instance.signOut();
+              _signOut();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -25,5 +33,10 @@ class SettingDash extends StatelessWidget {
             }),
       ),
     );
+  }
+
+  Future<void> _signOut() async {
+    await _auth.signOut();
+    await _googleSignIn.signOut();
   }
 }

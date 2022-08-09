@@ -26,6 +26,13 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
   PlatformFile? pickedFile;
   bool showLoading = false;
 
+  void _saveForm() {
+    final isValid = _formkey.currentState?.validate();
+    if (!isValid!) {
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     UserData? userData;
@@ -231,8 +238,9 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                                     validator: (value) {
                                       if (value!.length < 10 ||
                                           value.length > 10) {
-                                        // print("enter valid phonenumber");
+                                        return "Please Enter Valid PhoneNumber";
                                       }
+
                                       return null;
                                     },
                                     obscureText: false,
@@ -261,7 +269,12 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                               height: 20,
                             ),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                // _saveForm();
+                                if (emailController.toString() == user.email) {
+                                  
+                                }
+                              },
                               child: Center(
                                 child: Container(
                                   height: 50,

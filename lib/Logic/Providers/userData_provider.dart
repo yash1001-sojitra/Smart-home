@@ -91,13 +91,18 @@ class UsereDataProvider with ChangeNotifier {
         final UserCredential userCredential =
             await auth.signInWithCredential(credential);
         user = userCredential.user;
-        changeId(user!.uid);
-        changeEmail(user.email.toString());
-        changeName(user.displayName.toString());
-        changeUserimage(user.photoURL.toString());
-        changephonenumber(user.phoneNumber.toString());
+        String userid = user!.uid.toString();
+        String email = user.email.toString();
+        String name = user.displayName.toString();
+        String photourl = user.photoURL.toString();
+        String phonenumber = user.phoneNumber.toString();
+
+        changeId(userid);
+        changeEmail(email);
+        changeName(name);
+        changeUserimage(photourl);
+        changephonenumber(phonenumber);
         saveUserData();
-        notifyListeners();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
         } else if (e.code == 'invalid-credential') {}

@@ -15,7 +15,7 @@ class MusicViewModel extends StatefulWidget {
 class _MusicViewModelState extends State<MusicViewModel>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController =
-      AnimationController(vsync: this, duration: Duration(seconds: 7));
+      AnimationController(vsync: this, duration: const Duration(seconds: 7));
   double initval = 0;
   bool isplay = false;
   bool isPlayerconnected = false;
@@ -167,16 +167,18 @@ class _MusicViewModelState extends State<MusicViewModel>
                   left: 4.5,
                   child: GestureDetector(
                     onTap: () {
-                      if (isplay == true) {
-                        setState(() {
-                          isplay = false;
-                          animationController.repeat();
-                        });
-                      } else {
-                        setState(() {
-                          isplay = true;
-                          animationController.stop();
-                        });
+                      if (isPlayerconnected == true) {
+                        if (isplay == true) {
+                          setState(() {
+                            isplay = false;
+                            animationController.repeat();
+                          });
+                        } else {
+                          setState(() {
+                            isplay = true;
+                            animationController.stop();
+                          });
+                        }
                       }
                     },
                     child: IconButton(

@@ -267,7 +267,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   initialValue:
                                       userDataList.first.phoneNumber != "null"
                                           ? userDataList.first.phoneNumber
-                                          : "Phone Number",
+                                          : "",
                                   textInputAction: TextInputAction.done,
                                   keyboardType: TextInputType.phone,
                                   cursorColor: Colors.grey,
@@ -308,6 +308,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   String url = await ref.getDownloadURL();
                                   userprovider.changeUserimage(url);
                                   userprovider.updateProfileImg(user.uid);
+                                  userprovider.saveUserData();
                                 } else {
                                   userprovider.saveUserData();
                                 }
