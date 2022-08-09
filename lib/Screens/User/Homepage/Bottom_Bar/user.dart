@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, depend_on_referenced_packages, avoid_returning_null_for_void, unrelated_type_equality_checks
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarthome/Core/Constant/string.dart';
@@ -42,13 +43,9 @@ class _UserDashState extends State<UserDash> {
 
     List<UserData> otheruserdetialsdata = [];
 
-    userDataListRaw?.forEach((element) {
-      if (user.uid.toString() == otheruserdata) {
-        otheruserdetialsdata.add(element);
-      } else {
-        return null;
-      }
-    });
+    for (var i = 0; i < otheruserdata.length; i++) {
+      
+    }
 
     return Scaffold(
       backgroundColor: Colors.white30,

@@ -6,13 +6,12 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import '../../Modules/user_model.dart';
 import 'authError.dart';
 
-
 class AuthService {
   final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-   getcurrentUser()  {
-    return  _firebaseAuth.currentUser;
+  getcurrentUser() {
+    return _firebaseAuth.currentUser;
   }
 
   FireBaseUser? _userFromFirebase(auth.User? user) {
@@ -52,8 +51,7 @@ class AuthService {
     }
   }
 
-  Future<void> addUserToFirestore(
-      {uid, Name, email}) {
+  Future<void> addUserToFirestore({uid, Name, email}) {
     return _db.collection('User').doc(uid).set({
       'id': uid,
       'Name': Name,
