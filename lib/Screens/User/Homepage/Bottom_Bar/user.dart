@@ -32,11 +32,22 @@ class _UserDashState extends State<UserDash> {
         return null;
       }
     });
-    List<UserData> otheruserdata = [];
+    List otheruserdata = [];
+
+    for (var i = 0; i < userDataList.first.otheruser.length; i++) {
+      otheruserdata.add(userDataList.first.otheruser[i].toString());
+    }
+
+    print("otheruserdata " + "${otheruserdata.toList()}");
+
+    List<UserData> otheruserdetialsdata = [];
+
     userDataListRaw?.forEach((element) {
-      // if () {
-      //   otheruserdata.add(element);
-      // }
+      if (user.uid.toString() == otheruserdata) {
+        otheruserdetialsdata.add(element);
+      } else {
+        return null;
+      }
     });
 
     return Scaffold(
@@ -126,12 +137,12 @@ class _UserDashState extends State<UserDash> {
             SizedBox(
               height: 380,
               child: ListView.builder(
-                itemCount: otheruserdata.length,
+                itemCount: otheruserdetialsdata.length,
                 itemBuilder: (BuildContext context, int index) {
                   return UserListModel(
-                    name: otheruserdata[index].Name,
-                    src: otheruserdata[index].userimage,
-                    otheruserid: otheruserdata[index].id,
+                    name: otheruserdetialsdata[index].Name,
+                    src: otheruserdetialsdata[index].userimage,
+                    otheruserid: otheruserdetialsdata[index].id,
                   );
                 },
               ),
