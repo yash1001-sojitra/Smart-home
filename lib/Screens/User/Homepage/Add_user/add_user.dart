@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:smarthome/Logic/Providers/userData_provider.dart';
 
 import '../../../../Core/Constant/textcontroller.dart';
 import '../../../../Logic/Modules/userData_model.dart';
@@ -28,6 +29,7 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
 
   void _saveForm() {
     final isValid = _formkey.currentState?.validate();
+
     if (!isValid!) {
       return;
     }
@@ -35,9 +37,16 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String useremail = "";
     UserData? userData;
     final authService = Provider.of<AuthService>(context);
     User user = authService.getcurrentUser();
+    List<UserData> userDataList = [];
+    final userDataListRaw = Provider.of<List<UserData>?>(context);
+    userDataListRaw?.forEach((element) {
+      userDataList.add(element);
+    });
+
     const padd = EdgeInsets.only(left: 28, right: 30, top: 8, bottom: 5);
     return Form(
       key: _formkey,
@@ -269,11 +278,26 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                               height: 20,
                             ),
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 // _saveForm();
-                                if (emailController.toString() == user.email) {
-                                  
+                                setState(() {
+                                  showLoading = true;
+                                });
+                                progressIndicater(context, showLoading = true);
+                                for (int i = 0; i < userDataList.length; i++) {
+                                  var element = userDataList[i];
+                                  if (element.Email ==
+                                      emailController.text.toString()) {
+                                    UsereDataProvider()
+                                        .addotheruser(user.uid, element.id);
+                                    continue;
+                                  }
                                 }
+                                setState(() {
+                                  showLoading = false;
+                                });
+                                Navigator.pop(context);
+                                Navigator.pop(context);
                               },
                               child: Center(
                                 child: Container(
