@@ -41,7 +41,7 @@ class _UserDashState extends State<UserDash> {
 
     print("otheruserdata " + "${otheruserdata.toList()}");
 
-    List otheruserdetialsdata = [];
+    List<UserData> otheruserdetialsdata = [];
     void checkUserdataExists() async {
       for (var i = 0; i < otheruserdata.length; i++) {
         DocumentSnapshot snap = await FirebaseFirestore.instance
