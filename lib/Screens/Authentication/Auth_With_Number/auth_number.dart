@@ -187,7 +187,9 @@ class _NumberAuthState extends State<NumberAuth> {
                         onPressed: () async {
                           if (isNullOrBlank(phoneNumber) ||
                               !_formkey.currentState!.validate()) {
-                            showSnackBar('Please enter a valid phone number!');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                animationsnackbar("Sign In With Number",
+                                    "Please enter a valid phone number!"));
                           } else {
                             Navigator.pushNamed(
                               context,

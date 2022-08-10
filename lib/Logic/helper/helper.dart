@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 
 import 'globals.dart';
 
-void showSnackBar(
-  String text, {
-  Duration duration = const Duration(seconds: 2),
-}) {
-  Globals.scaffoldMessengerKey.currentState
-    ?..clearSnackBars()
-    ..showSnackBar(
-      SnackBar(content: Text(text), duration: duration),
-    );
-}
+// void showSnackBar(
+//   String text, {
+//   Duration duration = const Duration(seconds: 2),
+// }) {
+//   Globals.scaffoldMessengerKey.currentState
+//     ?..clearSnackBars()
+//     ..showSnackBar(
+//       SnackBar(content: Text(text), duration: duration),
+//     );
+// }
 
 bool isNullOrBlank(String? data) => data?.trim().isEmpty ?? true;
 

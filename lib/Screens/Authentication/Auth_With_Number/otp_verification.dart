@@ -89,7 +89,8 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
                 : 'OTP was verified manually!',
           );
 
-          showSnackBar('Phone number verified successfully!');
+          ScaffoldMessenger.of(context).showSnackBar(animationsnackbar(
+              "Sign In With Number", "Phone number verified successfully!"));
 
           log(
             otpverificationScreenRoute,
@@ -98,6 +99,7 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
 
           Navigator.pushNamed(context, homepageScreenRoute);
         },
+        // ignore: void_checks
         onLoginFailed: (authException, stackTrace) {
           log(
             otpverificationScreenRoute,
@@ -109,13 +111,20 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
           switch (authException.code) {
             case 'invalid-phone-number':
               // invalid phone number
-              return showSnackBar('Invalid phone number!');
+              return ScaffoldMessenger.of(context).showSnackBar(
+                  animationsnackbar(
+                      "Sign In With Number", "Invalid phone number!"));
             case 'invalid-verification-code':
               // invalid otp entered
-              return showSnackBar('The entered OTP is invalid!');
+              return ScaffoldMessenger.of(context).showSnackBar(
+                  animationsnackbar(
+                      "Sign In With Number", "The entered OTP is invalid!"));
+
             // handle other error codes
             default:
-              showSnackBar('Something went wrong!');
+              ScaffoldMessenger.of(context).showSnackBar(animationsnackbar(
+                  "Sign In With Number", "Something went wrong!"));
+
             // handle error further if needed
           }
         },
@@ -125,8 +134,8 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
             error: error,
             stackTrace: stackTrace,
           );
-
-          showSnackBar('An error occurred!');
+          ScaffoldMessenger.of(context).showSnackBar(
+              animationsnackbar("Sign In With Number", "An error occurred!"));
         },
         builder: (context, controller) {
           return Scaffold(
