@@ -1,4 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, use_build_context_synchronously
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -154,7 +155,6 @@ class _NumberAuthState extends State<NumberAuth> {
                         cursorColor: Colors.white,
                         style:
                             const TextStyle(color: Colors.white, fontSize: 20),
-                        autofocus: true,
                         invalidNumberMessage: 'Invalid Phone Number!',
                         textAlignVertical: TextAlignVertical.center,
                         onChanged: (phone) =>
@@ -189,7 +189,7 @@ class _NumberAuthState extends State<NumberAuth> {
                               !_formkey.currentState!.validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 animationsnackbar("Sign In With Number",
-                                    "Please enter a valid phone number!"));
+                                    "Please enter a valid phone number!" , ContentType.warning));
                           } else {
                             Navigator.pushNamed(
                               context,

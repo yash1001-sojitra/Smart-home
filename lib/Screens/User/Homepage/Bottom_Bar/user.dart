@@ -1,19 +1,16 @@
 // ignore_for_file: must_be_immutable, depend_on_referenced_packages, avoid_returning_null_for_void, unrelated_type_equality_checks
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Logic/Providers/userData_provider.dart';
-import 'package:smarthome/Screens/Splash/splashscreen.dart';
 import '../../../../Logic/Modules/userData_model.dart';
 import '../../../../Logic/Services/auth_services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:widget_circular_animator/widget_circular_animator.dart';
 import '../../Drawer/DrawerScreens/profile.dart';
 import '../../Drawer/drawer.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class UserDash extends StatefulWidget {
   const UserDash({Key? key}) : super(key: key);
@@ -25,7 +22,6 @@ class UserDash extends StatefulWidget {
 class _UserDashState extends State<UserDash> {
   @override
   Widget build(BuildContext context) {
-    final firestore = FirebaseFirestore.instance;
     final authService = Provider.of<AuthService>(context);
     User user = authService.getcurrentUser();
     List<UserData> userDataList = [];
@@ -45,7 +41,20 @@ class _UserDashState extends State<UserDash> {
 
     print("otheruserdata " + "${otheruserdata.toList()}");
 
-    List<UserData> otheruserdetialsdata = [];
+    List otheruserdetialsdata = [];
+    void checkUserdataExists() async {
+      for (var i = 0; i < otheruserdata.length; i++) {
+        DocumentSnapshot snap = await FirebaseFirestore.instance
+            .collection('User')
+            .doc(otheruserdata.elementAt(i))
+            .get();
+        // otheruserdetialsdata.add(snap.get(['Email']));
+        print(snap.id);
+        print(snap.data().toString());
+      }
+    }
+
+    checkUserdataExists();
 
     return Scaffold(
       backgroundColor: Colors.white30,

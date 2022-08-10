@@ -199,14 +199,4 @@ class _AuthMainState extends State<AuthMain> {
       ),
     );
   }
-
-  // Future<void> signupwithgoogle(BuildContext context) async {
-  //   final GoogleSignIn googleSignIn = GoogleSignIn();
-  //   final GoogleSignInAccount? googleSignInAccount =
-  //       await googleSignIn.signIn();
-  //   if (googleSignInAccount != null) {
-  //     Navigator.pushReplacement(
-  //         context, MaterialPageRoute(builder: (context) => const Homepage()));
-  //   }
-  // }
 }

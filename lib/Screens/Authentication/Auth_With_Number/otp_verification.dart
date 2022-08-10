@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthome/Core/Constant/string.dart';
@@ -90,7 +91,9 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
           );
 
           ScaffoldMessenger.of(context).showSnackBar(animationsnackbar(
-              "Sign In With Number", "Phone number verified successfully!"));
+              "Sign In With Number",
+              "Phone number verified successfully!",
+              ContentType.success));
 
           log(
             otpverificationScreenRoute,
@@ -112,18 +115,20 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
             case 'invalid-phone-number':
               // invalid phone number
               return ScaffoldMessenger.of(context).showSnackBar(
-                  animationsnackbar(
-                      "Sign In With Number", "Invalid phone number!"));
+                  animationsnackbar("Sign In With Number",
+                      "Invalid phone number!", ContentType.failure));
             case 'invalid-verification-code':
               // invalid otp entered
               return ScaffoldMessenger.of(context).showSnackBar(
-                  animationsnackbar(
-                      "Sign In With Number", "The entered OTP is invalid!"));
+                  animationsnackbar("Sign In With Number",
+                      "The entered OTP is invalid!", ContentType.warning));
 
             // handle other error codes
             default:
               ScaffoldMessenger.of(context).showSnackBar(animationsnackbar(
-                  "Sign In With Number", "Something went wrong!"));
+                  "Sign In With Number",
+                  "Something went wrong!",
+                  ContentType.failure));
 
             // handle error further if needed
           }
@@ -134,8 +139,10 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
             error: error,
             stackTrace: stackTrace,
           );
-          ScaffoldMessenger.of(context).showSnackBar(
-              animationsnackbar("Sign In With Number", "An error occurred!"));
+          ScaffoldMessenger.of(context).showSnackBar(animationsnackbar(
+              "Sign In With Number",
+              "An error occurred!",
+              ContentType.failure));
         },
         builder: (context, controller) {
           return Scaffold(

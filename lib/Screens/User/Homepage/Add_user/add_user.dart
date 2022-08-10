@@ -241,7 +241,9 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                                     inputFormatters: [
                                       FilteringTextInputFormatter.digitsOnly
                                     ],
-                                    validator: (value) {},
+                                    validator: (value) {
+                                      return null;
+                                    },
                                     obscureText: false,
                                     controller: adduserphonenumberController,
                                     textInputAction: TextInputAction.done,
@@ -292,12 +294,16 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                                       adduserphonenumberController
                                           .text.isEmpty) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        animationsnackbar("ADD USER",
-                                            "Please Enter Any One of Them"));
+                                        animationsnackbar(
+                                            "ADD USER",
+                                            "Please Enter Any One of Them",
+                                            ContentType.warning));
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        animationsnackbar("ADD USER",
-                                            "Please Enter Valid User Details"));
+                                        animationsnackbar(
+                                            "ADD USER",
+                                            "User Alredy Added",
+                                            ContentType.success));
                                   }
                                 }
                                 setState(() {
@@ -349,8 +355,6 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
       ),
     );
   }
-
-
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles();
