@@ -39,13 +39,12 @@ class _SettingDashState extends State<SettingDash> {
         toolbarHeight: 70,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: const Padding(
-          padding: EdgeInsets.only(left: 10.0),
-          child: Text(
-            "Settings",
-            style: TextStyle(color: Colors.black, fontSize: 30),
-          ),
+        title: Text(
+          "Settings",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.black, fontSize: 30),
         ),
+        leadingWidth: 20,
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
