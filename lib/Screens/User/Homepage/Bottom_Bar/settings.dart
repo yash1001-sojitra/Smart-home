@@ -31,7 +31,7 @@ class _SettingDashState extends State<SettingDash> {
       if (user.uid == element.id) {
         userDataList.add(element);
       } else {
-        return null;
+        return;
       }
     });
     return Scaffold(
@@ -39,7 +39,7 @@ class _SettingDashState extends State<SettingDash> {
         toolbarHeight: 70,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text(
+        title: const Text(
           "Settings",
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.black, fontSize: 30),

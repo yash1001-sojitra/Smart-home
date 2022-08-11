@@ -34,4 +34,7 @@ const String searchScreenRoute = '/searchScreenRoute';
 //rooms page
 
 const String bedroomScreenRoute = '/bedroomScreenRoute';
+const String kitchenScreenRoute = '/kitchenScreenRoute';
+const String livingroomScreenRoute = '/livingroomScreenRoute';
+
 //****************End-Routes***********************

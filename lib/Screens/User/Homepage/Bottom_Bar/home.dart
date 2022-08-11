@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, unnecessary_null_comparison, avoid_returning_null_for_void, unrelated_type_equality_checks
+// ignore_for_file: depend_on_referenced_packages, unnecessary_null_comparison, avoid_returning_null_for_void, unrelated_type_equality_checks, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +42,19 @@ class _HomeDashState extends State<HomeDash> {
       }
       return 'Good Evening';
     }
+
+    List roomimage = [
+      "livingroommain.png",
+      "bedroommain.png",
+      "kitchenmain.png"
+    ];
+    List roomname = ["Living Room", "Bed Room", "Kitchen"];
+
+    List roomnavigation = [
+      livingroomScreenRoute,
+      bedroomScreenRoute,
+      kitchenScreenRoute
+    ];
 
     return Scaffold(
       backgroundColor: Colors.white30,
@@ -89,7 +102,7 @@ class _HomeDashState extends State<HomeDash> {
                   hoverColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onPressed: () => Scaffold.of(context).openDrawer(),
+                  onPressed: () {},
                   icon: Image.asset(
                     "assets/images/menu.png",
                     height: 30,
@@ -137,9 +150,12 @@ class _HomeDashState extends State<HomeDash> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, bedroomScreenRoute);
+                        Navigator.pushNamed(context, roomnavigation[index]);
                       },
-                      child: const RoomsListViewModel());
+                      child: RoomsListViewModel(
+                        roomimage: roomimage[index],
+                        roomname: roomname[index],
+                      ));
                 },
               ),
             ),
@@ -150,14 +166,26 @@ class _HomeDashState extends State<HomeDash> {
   }
 }
 
-class RoomsListViewModel extends StatelessWidget {
-  const RoomsListViewModel({Key? key}) : super(key: key);
+class RoomsListViewModel extends StatefulWidget {
+  String roomimage;
+  String roomname;
+  RoomsListViewModel(
+      {required this.roomimage, required this.roomname, Key? key})
+      : super(key: key);
 
+  @override
+  State<RoomsListViewModel> createState() => _RoomsListViewModelState();
+}
+
+class _RoomsListViewModelState extends State<RoomsListViewModel> {
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 10, bottom: 10),
-      height: 190,
+      height: 160,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Stack(children: [
         Positioned.fill(
           child: Container(
@@ -167,7 +195,7 @@ class RoomsListViewModel extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(
-                "assets/images/bedroommain.png",
+                "assets/images/${widget.roomimage}",
                 fit: BoxFit.cover,
               ),
             ),
@@ -178,7 +206,7 @@ class RoomsListViewModel extends StatelessWidget {
           left: 0,
           right: 0,
           child: Container(
-            height: 190,
+            height: 160,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
@@ -188,30 +216,59 @@ class RoomsListViewModel extends StatelessWidget {
               gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
-                  colors: [Colors.black.withOpacity(0.2), Colors.black12]),
+                  colors: [Colors.black.withOpacity(0.5), Colors.black12]),
             ),
           ),
         ),
         Positioned(
-          bottom: 0,
+          bottom: 18,
+          left: 10,
           child: Padding(
             padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
-                  "Living room",
-                  style: TextStyle(color: Colors.white, fontSize: 23),
+                  widget.roomname,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 23,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: const Offset(1.0, 1.0),
+                        blurRadius: 5.0,
+                        color: Colors.white.withOpacity(0.5),
+                      ),
+                      Shadow(
+                        offset: const Offset(1.0, 1.0),
+                        blurRadius: 5.0,
+                        color: Colors.white.withOpacity(0.30),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(
-                  height: 5,
+                const SizedBox(
+                  height: 7,
                 ),
                 Text(
                   "4 Devices",
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: const Offset(1.0, 1.0),
+                        blurRadius: 5.0,
+                        color: Colors.white.withOpacity(0.5),
+                      ),
+                      Shadow(
+                        offset: const Offset(1.0, 1.0),
+                        blurRadius: 5.0,
+                        color: Colors.white.withOpacity(0.30),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

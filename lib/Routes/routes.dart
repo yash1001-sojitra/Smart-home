@@ -9,6 +9,8 @@ import 'package:smarthome/Screens/Authentication/Auth_With_Number/otp_verificati
 import 'package:smarthome/Screens/Authentication/Forgot_Password/forgotpass.dart';
 import 'package:smarthome/Screens/User/Homepage/Add_user/add_user.dart';
 import 'package:smarthome/Screens/User/Homepage/All_Rooms/bedroom.dart';
+import 'package:smarthome/Screens/User/Homepage/All_Rooms/kitchen.dart';
+import 'package:smarthome/Screens/User/Homepage/All_Rooms/liningroom.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 
 import '../Logic/helper/helper.dart';
@@ -63,6 +65,12 @@ class Routes {
 
       case bedroomScreenRoute:
         return MaterialPageRoute(builder: (context) => const BedRoom());
+
+      case livingroomScreenRoute:
+        return MaterialPageRoute(builder: (context) => const Livingroom());
+
+      case kitchenScreenRoute:
+        return MaterialPageRoute(builder: (context) => const Kitchen());
 
       case otpverificationScreenRoute:
         return MaterialPageRoute(builder: (context) {

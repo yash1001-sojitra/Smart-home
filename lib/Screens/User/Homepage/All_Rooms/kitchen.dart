@@ -40,8 +40,10 @@ class _KitchenState extends State<Kitchen> {
                   hoverColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onPressed: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => const AddDevices())),
+                  onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddDevices())),
                   icon: const Icon(
                     Icons.add,
                     color: Colors.black,
@@ -58,13 +60,9 @@ class _KitchenState extends State<Kitchen> {
             children: [
               Row(
                 children: const [
-                  Text("Bed, ",
+                  Text("Kitchen",
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.w600)),
-                  Text(
-                    "Room",
-                    style: TextStyle(fontSize: 25),
-                  )
                 ],
               ),
               const SizedBox(
