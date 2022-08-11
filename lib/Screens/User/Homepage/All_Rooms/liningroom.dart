@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:smarthome/Screens/User/Device_Adding/add_device.dart';
 import 'package:smarthome/Screens/User/models/ac_view_model.dart';
 import 'package:smarthome/Screens/User/models/devices_model.dart';
-import 'package:smarthome/Screens/User/models/music_view_model.dart';
 
 class Livingroom extends StatefulWidget {
   const Livingroom({Key? key}) : super(key: key);

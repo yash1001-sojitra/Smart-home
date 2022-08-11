@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 import 'package:smarthome/Screens/User/models/devices_model.dart';
 import '../../../Logic/Modules/userData_model.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
@@ -67,7 +68,7 @@ class _AddDevicesState extends State<AddDevices> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             Row(
@@ -94,13 +95,18 @@ class _AddDevicesState extends State<AddDevices> {
               height: 15,
             ),
             Expanded(
+              // height: 170,
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                 ),
                 itemCount: 6,
                 itemBuilder: (BuildContext context, int index) {
-                  return const DevicesModel() ;
+                  return GestureDetector(
+                      onTap: () {
+                        _modalBottomSheetMenu();
+                      },
+                      child: const DevicesModel());
                 },
               ),
             ),
@@ -108,5 +114,67 @@ class _AddDevicesState extends State<AddDevices> {
         ),
       ),
     );
+  }
+
+  void _modalBottomSheetMenu() {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+        ),
+        context: context,
+        builder: (builder) {
+          return Stack(children: [
+            Container(
+                height: 350.0,
+                color: const Color(0xFF737373),
+                child: Container(
+                  decoration: const BoxDecoration(
+                      color: Color(0xff255ED6),
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20.0))),
+                  child: Column(children: [
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      width: 31,
+                      height: 6,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Container(
+                                alignment: Alignment.topLeft,
+                                child: const Text("Search Nearby Devices…",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                        child: RippleAnimation(
+                            repeat: true,
+                            color: Colors.white,
+                            minRadius: 60,
+                            ripplesCount: 10,
+                            child: Container()))
+                  ]),
+                )),
+          ]);
+        });
   }
 }
