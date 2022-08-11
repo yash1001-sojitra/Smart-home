@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, use_build_context_synchronously
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
@@ -10,8 +10,13 @@ import '../../../Logic/helper/helper.dart';
 import '../../../Logic/widgets/pin_input.dart';
 
 class VerifyPhoneNumberScreen extends StatefulWidget {
+  // final String Name;
+  // final String Email;
   final String phoneNumber;
+
   const VerifyPhoneNumberScreen({
+    // required this.Name,
+    // required this.Email,
     required this.phoneNumber,
     Key? key,
   }) : super(key: key);
@@ -100,6 +105,17 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
             msg: 'Login Success UID: ${userCredential.user?.uid}',
           );
 
+          // print("Data Store Start here");
+
+          // UsereDataProvider().changeId(userCredential.user!.uid);
+          // UsereDataProvider()
+          //     .changeEmail(userCredential.user!.email.toString());
+          // UsereDataProvider().changeUserimage(
+          //     "https://winaero.com/blog/wp-content/uploads/2017/12/User-icon-256-blue.png");
+          // UsereDataProvider()
+          //     .changephonenumber(userCredential.user!.phoneNumber.toString());
+          // UsereDataProvider().saveUserData();
+          // print("Store data successfully");
           Navigator.pushNamed(context, homepageScreenRoute);
         },
         // ignore: void_checks
@@ -213,9 +229,15 @@ class _VerifyPhoneNumberScreenState extends State<VerifyPhoneNumberScreen>
                             if (verified) {
                               // number verify success
                               // will call onLoginSuccess handler
+
                             } else {
                               // phone verification failed
                               // will call onLoginFailed or onError callbacks with the error
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  animationsnackbar(
+                                      "OTP Verification",
+                                      "OTP verification failed",
+                                      ContentType.failure));
                             }
                           },
                         ),

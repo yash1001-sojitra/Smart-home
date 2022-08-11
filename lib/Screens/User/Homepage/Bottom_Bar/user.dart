@@ -39,22 +39,25 @@ class _UserDashState extends State<UserDash> {
       otheruserdata.add(userDataList.first.otheruser[i].toString());
     }
 
-    print("otheruserdata " + "${otheruserdata.toList()}");
-
-    List<UserData> otheruserdetialsdata = [];
-    void checkUserdataExists() async {
+    // print("otheruserdata " + "${otheruserdata.toList()}");
+    List<String> userdataName = [];
+    List<String> userdataImage = [];
+    checkUserdataExists(List<String> username, List<String> userimage) async {
       for (var i = 0; i < otheruserdata.length; i++) {
         DocumentSnapshot snap = await FirebaseFirestore.instance
             .collection('User')
             .doc(otheruserdata.elementAt(i))
             .get();
-        // otheruserdetialsdata.add(snap.get(['Email']));
-        print(snap.id);
-        print(snap.data().toString());
+
+        username.add(snap.get('Name'));
+        userimage.add(snap.get('UserImage'));
+
+        // print(snap.data().toString());
       }
     }
 
-    checkUserdataExists();
+    checkUserdataExists(userdataName, userdataImage);
+    print(userdataName.toList());
 
     return Scaffold(
       backgroundColor: Colors.white30,
@@ -130,10 +133,10 @@ class _UserDashState extends State<UserDash> {
               height: 10,
             ),
             Row(
-              children: const [
+              children: [
                 Text(
-                  "Total ${1} active user. ",
-                  style: TextStyle(color: Colors.grey),
+                  "Total ${userdataName.length} active user.",
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ],
             ),
@@ -143,12 +146,12 @@ class _UserDashState extends State<UserDash> {
             SizedBox(
               height: 380,
               child: ListView.builder(
-                itemCount: otheruserdetialsdata.length,
+                itemCount: userdataName.length,
                 itemBuilder: (BuildContext context, int index) {
                   return UserListModel(
-                    name: otheruserdetialsdata[index].Name,
-                    src: otheruserdetialsdata[index].userimage,
-                    otheruserid: otheruserdetialsdata[index].id,
+                    name: userdataName[index],
+                    src: userdataImage[index],
+                    otheruserid: otheruserdata[index],
                   );
                 },
               ),

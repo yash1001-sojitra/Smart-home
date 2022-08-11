@@ -61,14 +61,18 @@ class Routes {
       case AdduserProfileScreenRoute:
         return MaterialPageRoute(builder: (context) => const AdduserScreen());
 
-        case bedroomScreenRoute:
+      case bedroomScreenRoute:
         return MaterialPageRoute(builder: (context) => const BedRoom());
 
       case otpverificationScreenRoute:
-        return MaterialPageRoute(
-            builder: (context) => VerifyPhoneNumberScreen(
-                  phoneNumber: args,
-                ));
+        return MaterialPageRoute(builder: (context) {
+          return VerifyPhoneNumberScreen(
+            // Name: args,
+            // Email: args,
+            // phoneNumber: args,
+            phoneNumber: args,
+          );
+        });
 
       // main screens
       case homepageScreenRoute:

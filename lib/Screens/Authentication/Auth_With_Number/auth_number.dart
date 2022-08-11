@@ -3,7 +3,6 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import '../../../Logic/Providers/userData_provider.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
@@ -25,18 +24,12 @@ class _NumberAuthState extends State<NumberAuth> {
   bool showAlert = false;
   bool ispasswordvisible = true;
   final _formkey = GlobalKey<FormState>();
-  // TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController otpCodeController = TextEditingController();
 
-  final RoundedLoadingButtonController googleController =
-      RoundedLoadingButtonController();
-  final RoundedLoadingButtonController facebookController =
-      RoundedLoadingButtonController();
-  final RoundedLoadingButtonController phoneController =
-      RoundedLoadingButtonController();
-
+  // String? Name;
+  // String? Email;
   String? phoneNumber;
 
   @override
@@ -89,7 +82,9 @@ class _NumberAuthState extends State<NumberAuth> {
                         height: 70,
                         width: 325,
                         child: TextField(
-                          onChanged: (((value) => '')),
+                          onChanged: (((value) => setState(() {
+                                // Name = value;
+                              }))),
                           obscureText: false,
                           controller: nameController,
                           textInputAction: TextInputAction.next,
@@ -121,6 +116,11 @@ class _NumberAuthState extends State<NumberAuth> {
                         height: 70,
                         width: 325,
                         child: TextFormField(
+                          onChanged: ((value) {
+                            setState(() {
+                              // Email = value;
+                            });
+                          }),
                           controller: emailController,
                           obscureText: false,
                           textInputAction: TextInputAction.next,
@@ -188,12 +188,15 @@ class _NumberAuthState extends State<NumberAuth> {
                           if (isNullOrBlank(phoneNumber) ||
                               !_formkey.currentState!.validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                                animationsnackbar("Sign In With Number",
-                                    "Please enter a valid phone number!" , ContentType.warning));
+                                animationsnackbar(
+                                    "Sign In With Number",
+                                    "Please enter a valid phone number!",
+                                    ContentType.warning));
                           } else {
                             Navigator.pushNamed(
                               context,
                               otpverificationScreenRoute,
+                              // arguments: [Name, Email, phoneNumber],
                               arguments: phoneNumber,
                             );
                           }
