@@ -83,7 +83,7 @@ class _KitchenState extends State<Kitchen> {
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
-                    return const DevicesModel();
+                    return  DevicesModel();
                   },
                 ),
               ),

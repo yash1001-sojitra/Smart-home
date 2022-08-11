@@ -28,7 +28,7 @@ class _AddDevicesState extends State<AddDevices> {
         userDataList.add(element);
       }
     });
-
+    List imageurl = ["light.png", "music.png", "security.png", "acmodel.png"];
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: const MyDrawer(),
@@ -100,13 +100,17 @@ class _AddDevicesState extends State<AddDevices> {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                 ),
-                itemCount: 6,
+                itemCount: 5,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                       onTap: () {
                         _modalBottomSheetMenu();
-                      },
-                      child: const DevicesModel());
+                       },
+                      child: AddDevicesModel(
+                        color: index != 4 ? Colors.white : Colors.blue,
+                        imageurl:
+                            index != 4 ? imageurl[index] : "adddevice.png",
+                      ));
                 },
               ),
             ),

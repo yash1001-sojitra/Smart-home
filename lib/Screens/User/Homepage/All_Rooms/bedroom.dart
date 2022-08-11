@@ -88,7 +88,7 @@ class _BedRoomState extends State<BedRoom> {
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
-                    return const DevicesModel();
+                    return  DevicesModel();
                   },
                 ),
               ),
