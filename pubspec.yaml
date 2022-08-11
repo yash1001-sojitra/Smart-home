@@ -75,6 +75,7 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   circular_clip_route: ^0.2.0+3
   widget_circular_animator: ^1.0.0
+  babstrap_settings_screen: ^0.1.3
 
   #wireless connection --> bluetooth
   flutter_blue: ^0.8.0
