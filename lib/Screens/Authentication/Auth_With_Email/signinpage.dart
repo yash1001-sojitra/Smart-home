@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smarthome/Core/Constant/string.dart';
 import 'package:smarthome/Core/Constant/textcontroller.dart';
 import '../../../Logic/Providers/userData_provider.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
+import '../../Passcode_and_fingerprint/service/AuthenticationService.dart';
 import '../../Splash/splashscreen.dart';
 
 class SignInpage extends StatefulWidget {
@@ -23,6 +25,12 @@ class _SignInpageState extends State<SignInpage> {
   bool showAlert = false;
   bool ispasswordvisible = true;
   final _formkey = GlobalKey<FormState>();
+
+  Future<bool> get hasBio async {
+    List<BiometricType> availableBiometrics =
+        await localAuth.getAvailableBiometrics();
+    return availableBiometrics.isNotEmpty;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +181,9 @@ class _SignInpageState extends State<SignInpage> {
                             showLoading = true;
                           });
                           progressIndicater(context, showLoading = true);
+
                           await login();
+
                           showAlert == true
                               ? null
                               : progressIndicater(context, showLoading = true);

@@ -119,7 +119,6 @@ class _BedRoomState extends State<BedRoom> {
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
-                        print(index);
                         _onSelected(index);
                         setState(() {
                           // selectedIndex = index;

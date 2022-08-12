@@ -236,12 +236,12 @@ class _RoomsListViewModelState extends State<RoomsListViewModel> {
                     shadows: <Shadow>[
                       Shadow(
                         offset: const Offset(1.0, 1.0),
-                        blurRadius: 5.0,
+                        blurRadius: 3.0,
                         color: Colors.white.withOpacity(0.5),
                       ),
                       Shadow(
                         offset: const Offset(1.0, 1.0),
-                        blurRadius: 5.0,
+                        blurRadius: 3.0,
                         color: Colors.white.withOpacity(0.30),
                       ),
                     ],
@@ -259,12 +259,12 @@ class _RoomsListViewModelState extends State<RoomsListViewModel> {
                     shadows: <Shadow>[
                       Shadow(
                         offset: const Offset(1.0, 1.0),
-                        blurRadius: 5.0,
-                        color: Colors.white.withOpacity(0.5),
+                        blurRadius: 1.0,
+                        color: Colors.white.withOpacity(0.3),
                       ),
                       Shadow(
                         offset: const Offset(1.0, 1.0),
-                        blurRadius: 5.0,
+                        blurRadius: 1.0,
                         color: Colors.white.withOpacity(0.30),
                       ),
                     ],

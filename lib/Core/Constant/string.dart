@@ -6,6 +6,9 @@
 const String splashScreenRoute = '/';
 const String onboardingScreenRoute = '/onboardingScreenRoute';
 
+//passcode and biometric Screen
+const String setpasscodeScreenRoute = '/setPincodeScreen';
+
 //Authenication
 //auth main
 const String authmainScreenRoute = '/authmain';

@@ -10,6 +10,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../../Logic/Providers/userData_provider.dart';
 import '../../../Logic/Services/auth_services/auth_service.dart';
 import '../../../Logic/Modules/user_model.dart';
+import '../../Passcode_and_fingerprint/service/AuthenticationService.dart';
 import '../../Splash/splashscreen.dart';
 
 class SignupPage extends StatefulWidget {
@@ -33,6 +34,10 @@ class _SignupPageState extends State<SignupPage> {
     if (!isValid!) {
       return;
     }
+  }
+
+  Future<bool> get hasBioAuth async {
+    return await localAuth.canCheckBiometrics;
   }
 
   @override
@@ -222,7 +227,15 @@ class _SignupPageState extends State<SignupPage> {
                           showAlert == true
                               ? null
                               : progressIndicater(context, showLoading = true);
-                          Navigator.pop(context);
+                          final hasBio = await hasBioAuth;
+                          if (hasBio) {
+                            Navigator.pushNamed(
+                              context,
+                              onboardingScreenRoute,
+                            );
+                          } else {
+                            Navigator.pop(context);
+                          }
                         },
                         child: const Text(
                           "Create Account",
@@ -314,4 +327,10 @@ class _SignupPageState extends State<SignupPage> {
       desc: e.toString(),
     ).show();
   }
+}
+
+class ScreenArgs {
+  final String email;
+
+  ScreenArgs({required this.email});
 }

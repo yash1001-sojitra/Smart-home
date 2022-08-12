@@ -8,6 +8,9 @@ import 'package:lottie/lottie.dart';
 import 'package:smarthome/Screens/Authentication/Auth_Main/authmain.dart';
 import 'package:smarthome/Screens/User/Homepage/homepage.dart';
 
+import '../Passcode_and_fingerprint/page/passcod.dart';
+import '../Passcode_and_fingerprint/service/AuthenticationService.dart';
+
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class SplashScreen extends StatefulWidget {
@@ -18,23 +21,40 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool isNewUser = true;
+  final authService = AuthenticationService();
+
   int loginNum = 0;
   var emailAddress;
   @override
   void initState() {
     super.initState();
     checkUserType();
+    getUserStatus();
     Timer(
         const Duration(seconds: 5),
         () => {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      loginNum == 1 ? const Homepage() : const AuthMain(),
+                  builder: (context) => loginNum == 1 || !isNewUser
+                      // ? const PasscodePage()
+                      ? const Homepage()
+                      : const AuthMain(),
                 ),
               )
             });
+  }
+
+  Future<void> getUserStatus() async {
+    // we need to set value
+    final val = await authService.read('pin');
+    if (val.isNotEmpty) {
+      setState(() {
+        isNewUser = false;
+      });
+    }
+    authService.isNewUserController.add(isNewUser);
   }
 
   checkUserType() {

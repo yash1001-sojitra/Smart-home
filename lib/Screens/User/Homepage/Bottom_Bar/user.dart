@@ -57,7 +57,7 @@ class _UserDashState extends State<UserDash> {
     }
 
     checkUserdataExists(userdataName, userdataImage);
-    print(userdataName.toList());
+    // print(userdataName.toList());
 
     return Scaffold(
       backgroundColor: Colors.white30,

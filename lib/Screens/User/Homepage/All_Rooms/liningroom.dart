@@ -88,7 +88,7 @@ class _LivingroomState extends State<Livingroom> {
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
-                    return DevicesModel();
+                    return const DevicesModel();
                   },
                 ),
               ),
