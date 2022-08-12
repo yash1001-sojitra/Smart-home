@@ -2,8 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:smarthome/Screens/User/Device_Adding/add_device.dart';
+import 'package:smarthome/Screens/User/models/ac_view_model.dart';
 import 'package:smarthome/Screens/User/models/devices_model.dart';
+import 'package:smarthome/Screens/User/models/light_view_model.dart';
 import 'package:smarthome/Screens/User/models/music_view_model.dart';
+import 'package:smarthome/Screens/User/models/security_view_model.dart';
+import 'package:smarthome/Screens/User/models/voicedevice_view_model.dart';
+import 'package:smarthome/Screens/User/models/wifi_veiw_model.dart';
 
 class BedRoom extends StatefulWidget {
   const BedRoom({Key? key}) : super(key: key);
@@ -15,6 +20,30 @@ class BedRoom extends StatefulWidget {
 class _BedRoomState extends State<BedRoom> {
   @override
   Widget build(BuildContext context) {
+    List imageurl = [
+      "light.png",
+      "music.png",
+      "security.png",
+      "acmodel.png",
+      "wifi.png",
+      "siri.png"
+    ];
+    List viewModel = [
+      const LightViewModel(),
+      const MusicViewModel(),
+      const SecurityViewModel(),
+      const AcViewModel(),
+      const Wifi_view_model(),
+      const Siri_View_Model()
+    ];
+
+    int selectedIndex = 0;
+    _onSelected(int index) {
+      setState(() {
+        selectedIndex = index;
+      });
+    }
+
     return Scaffold(
       drawerEnableOpenDragGesture: true,
       backgroundColor: Colors.white,
@@ -86,14 +115,28 @@ class _BedRoomState extends State<BedRoom> {
                 height: 80,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: imageurl.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return  DevicesModel();
+                    return GestureDetector(
+                      onTap: () {
+                        print(index);
+                        _onSelected(index);
+                        setState(() {
+                          // selectedIndex = index;
+                          index == selectedIndex;
+                        });
+                      },
+                      child: AddDevicesModel(
+                        color:
+                            selectedIndex == index ? Colors.blue : Colors.white,
+                        imageurl: imageurl[index],
+                      ),
+                    );
                   },
                 ),
               ),
-              // const AcViewModel(),
-              const MusicViewModel()
+              viewModel[selectedIndex],
+              // const MusicViewModel()
             ],
           ),
         ),

@@ -39,7 +39,9 @@ class AddDevicesModel extends StatelessWidget {
           height: 60,
           width: 72,
           child: Center(
-            child: Image.asset("assets/images/${imageurl}"),
+            child: Image.asset(
+              "assets/images/${imageurl}",
+            ),
           ),
         ),
       ),
