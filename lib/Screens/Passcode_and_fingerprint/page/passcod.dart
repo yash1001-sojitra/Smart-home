@@ -65,7 +65,7 @@ class _PasscodePageState extends State<PasscodePage> {
     return FutureBuilder<bool>(
         future: localAuth.canCheckBiometrics,
         builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data!) {
+          if (snapshot.hasData && snapshot.data.toString().isEmpty) {
             authenticate();
             return GradientWrapper(
               mainColor: Colors.indigo,
@@ -78,12 +78,13 @@ class _PasscodePageState extends State<PasscodePage> {
                 ),
               ),
             );
+          } else {
+            return PasscodeWidget(
+              _isVerification,
+              _onCallback,
+              _onCancel,
+            );
           }
-          return PasscodeWidget(
-            _isVerification,
-            _onCallback,
-            _onCancel,
-          );
         });
   }
 }

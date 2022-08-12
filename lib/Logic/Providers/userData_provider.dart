@@ -110,9 +110,10 @@ class UsereDataProvider with ChangeNotifier {
           changeId(userid);
           changeEmail(email);
           changeName(name);
-          changeUserimage(photourl);
           changephonenumber(phonenumber);
+          changeUserimage(photourl);
           saveUserData();
+          notifyListeners();
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
