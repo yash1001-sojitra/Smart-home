@@ -13,8 +13,6 @@ class AuthenticationService {
       StreamController<bool>.broadcast();
   final StreamController<bool> _isNewUserController =
       StreamController<bool>.broadcast();
-  // Todo: skipped case
-  // final StreamController<bool> _skipped
 
   StreamController<bool> get isEnabledController => _isEnabledController;
   StreamController<bool> get isNewUserController => _isNewUserController;
