@@ -56,113 +56,115 @@ class _HomeDashState extends State<HomeDash> {
       kitchenScreenRoute
     ];
 
-    return Scaffold(
-      backgroundColor: Colors.white30,
-      drawer: const MyDrawer(),
-      drawerEnableOpenDragGesture: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        toolbarHeight: 70,
-        automaticallyImplyLeading: false,
-        leading: GestureDetector(
-          onTap: (() {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const MyProfilePage(),
-              ),
-            );
-          }),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: WidgetCircularAnimator(
-              innerColor: Colors.blue,
-              singleRing: true,
-              size: 55,
-              child: CircleAvatar(
-                radius: 25,
-                backgroundColor: Colors.grey,
-                child: CircleAvatar(
-                  backgroundImage: userDataList == 0
-                      ? const NetworkImage(
-                          "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png")
-                      : NetworkImage(userDataList.first.userimage),
-                  radius: 70,
+    return userDataList != null
+        ? Scaffold(
+            backgroundColor: Colors.white30,
+            drawer: const MyDrawer(),
+            drawerEnableOpenDragGesture: true,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              toolbarHeight: 70,
+              automaticallyImplyLeading: false,
+              leading: GestureDetector(
+                onTap: (() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MyProfilePage(),
+                    ),
+                  );
+                }),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: WidgetCircularAnimator(
+                    innerColor: Colors.blue,
+                    singleRing: true,
+                    size: 55,
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundColor: Colors.grey,
+                      child: CircleAvatar(
+                        backgroundImage: const NetworkImage(
+                            "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"),
+                        radius: 70,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
-        elevation: 0,
-        actions: [
-          Builder(
-            builder: (context) {
-              return IconButton(
-                  splashColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onPressed: () {},
-                  icon: Image.asset(
-                    "assets/images/menu.png",
-                    height: 30,
-                    width: 30,
-                  ));
-            },
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                const Text("Hello, ", style: TextStyle(fontSize: 25)),
-                Text(
-                  "${userDataList.first.Name}!",
-                  style: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.w600),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Text(
-                  "${greeting()}, ",
-                  style: const TextStyle(color: Colors.grey),
+              elevation: 0,
+              actions: [
+                Builder(
+                  builder: (context) {
+                    return IconButton(
+                        splashColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {},
+                        icon: Image.asset(
+                          "assets/images/menu.png",
+                          height: 30,
+                          width: 30,
+                        ));
+                  },
                 ),
-                const Text(
-                  "Welcome back.",
-                  style: TextStyle(color: Colors.grey),
-                )
               ],
             ),
-            const SizedBox(
-              height: 15,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, roomnavigation[index]);
+            body: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const Text("Hello, ", style: TextStyle(fontSize: 25)),
+                      Text(
+                        // "${userDataList.first.Name}!",
+                        "Yash",
+                        style: const TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.w600),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "${greeting()}, ",
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                      const Text(
+                        "Welcome back.",
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: 3,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, roomnavigation[index]);
+                            },
+                            child: RoomsListViewModel(
+                              roomimage: roomimage[index],
+                              roomname: roomname[index],
+                            ));
                       },
-                      child: RoomsListViewModel(
-                        roomimage: roomimage[index],
-                        roomname: roomname[index],
-                      ));
-                },
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          )
+        : Container();
   }
 }
 

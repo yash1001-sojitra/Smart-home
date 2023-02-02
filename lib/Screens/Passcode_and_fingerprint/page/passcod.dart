@@ -51,8 +51,9 @@ class _PasscodePageState extends State<PasscodePage> {
   Future<void> authenticate() async {
     final isAuthenticated = await localAuth.authenticate(
         localizedReason: 'Do something',
-        stickyAuth: true,
-        useErrorDialogs: true);
+        // stickyAuth: true,
+        // useErrorDialogs: true
+        );
     authService.isEnabledController.add(isAuthenticated);
     if (isAuthenticated) {
       Navigator.pushReplacement(

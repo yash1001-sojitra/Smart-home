@@ -114,7 +114,7 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    selectFile();
+                                    // selectFile();
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -122,18 +122,19 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                                       height: 110,
                                       width: 110,
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                            image: pickedFile != null
-                                                ? FileImage(
-                                                    (File(
-                                                        "${pickedFile!.path}")),
-                                                  )
-                                                : const AssetImage(
-                                                        "assets/images/profileimage.png")
-                                                    as ImageProvider,
-                                          )),
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image:
+                                                // pickedFile != null
+                                                //     ? FileImage(
+                                                //         (File("${pickedFile!.path}")),
+                                                //       )
+                                                //     :
+                                                const AssetImage(
+                                                    "assets/images/profileimage.png")
+                                            // as ImageProvider,
+                                            ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -176,7 +177,7 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                                     onChanged: ((value) {}),
                                     // initialValue: "yash",
                                     obscureText: false,
-                                    controller: adduseremailController,
+                                    // controller: adduseremailController,
                                     textInputAction: TextInputAction.next,
                                     keyboardType: TextInputType.emailAddress,
                                     cursorColor: Colors.grey,
@@ -273,43 +274,43 @@ class _AdduserScreenPageState extends State<AdduserScreen> {
                               onTap: () async {
                                 // _saveForm();
 
-                                setState(() {
-                                  showLoading = true;
-                                });
-                                progressIndicater(context, showLoading = true);
-                                for (int i = 0; i < userDataList.length; i++) {
-                                  var element = userDataList[i];
+                                // setState(() {
+                                //   showLoading = true;
+                                // });
+                                // progressIndicater(context, showLoading = true);
+                                // for (int i = 0; i < userDataList.length; i++) {
+                                //   var element = userDataList[i];
 
-                                  if (element.Email ==
-                                          adduseremailController.text
-                                              .toString() ||
-                                      element.phoneNumber ==
-                                          adduserphonenumberController.text
-                                              .toString()) {
-                                    UsereDataProvider()
-                                        .addotheruser(user.uid, element.id);
-                                    continue;
-                                  } else if (adduseremailController
-                                          .text.isEmpty &&
-                                      adduserphonenumberController
-                                          .text.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        animationsnackbar(
-                                            "ADD USER",
-                                            "Please Enter Any One of Them",
-                                            ContentType.warning));
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        animationsnackbar(
-                                            "ADD USER",
-                                            "User Alredy Added",
-                                            ContentType.success));
-                                  }
-                                }
-                                setState(() {
-                                  showLoading = false;
-                                  Navigator.pop(context);
-                                });
+                                //   if (element.Email ==
+                                //           adduseremailController.text
+                                //               .toString() ||
+                                //       element.phoneNumber ==
+                                //           adduserphonenumberController.text
+                                //               .toString()) {
+                                //     UsereDataProvider()
+                                //         .addotheruser(user.uid, element.id);
+                                //     continue;
+                                //   } else if (adduseremailController
+                                //           .text.isEmpty &&
+                                //       adduserphonenumberController
+                                //           .text.isEmpty) {
+                                //     ScaffoldMessenger.of(context).showSnackBar(
+                                //         animationsnackbar(
+                                //             "ADD USER",
+                                //             "Please Enter Any One of Them",
+                                //             ContentType.warning));
+                                //   } else {
+                                //     ScaffoldMessenger.of(context).showSnackBar(
+                                //         animationsnackbar(
+                                //             "ADD USER",
+                                //             "User Alredy Added",
+                                //             ContentType.success));
+                                //   }
+                                // }
+                                // setState(() {
+                                //   showLoading = false;
+                                //   Navigator.pop(context);
+                                // });
                               },
                               child: Center(
                                 child: Container(

@@ -31,14 +31,14 @@ class _BedRoomState extends State<BedRoom> {
     List viewModel = [
       const LightViewModel(),
       const MusicViewModel(),
-      const SecurityViewModel(),
       const AcViewModel(),
+      const SecurityViewModel(),
       const Wifi_view_model(),
       const Siri_View_Model()
     ];
 
     int selectedIndex = 0;
-    _onSelected(int index) {
+    _onSelected(int index) async {
       setState(() {
         selectedIndex = index;
       });
