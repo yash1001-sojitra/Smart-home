@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 300,
+                height: 200,
                 child: DrawerHeader(
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height,

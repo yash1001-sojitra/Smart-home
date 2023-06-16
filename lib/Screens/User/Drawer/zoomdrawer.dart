@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:flutter_zoom_drawer/config.dart';
+// import 'package:flutter_zoom_drawer/config.dart';
 import 'package:smarthome/Screens/User/Drawer/drawer.dart';
 import 'package:smarthome/Screens/User/Homepage/Bottom_Bar/home.dart';
 
