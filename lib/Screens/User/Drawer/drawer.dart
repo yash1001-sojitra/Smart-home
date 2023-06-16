@@ -22,11 +22,10 @@ class MyDrawer extends StatelessWidget {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 200,
+                height: 150,
                 child: DrawerHeader(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(500),
                     child: Image.asset(
                       "assets/images/profileimage.png",
                       fit: BoxFit.cover,
